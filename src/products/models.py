@@ -1,9 +1,6 @@
 from django.db import models
 
 # Create your models here.
-<<<<<<< HEAD
-=======
-
 """These are test models. They will be replaced later (or ignored)."""
 class ProductCategoriesTest(models.Model):
     name = models.CharField(max_length=255)
@@ -34,4 +31,3 @@ class ProductImageTest(models.Model):
 # ProductImages
 # ProductReviews
 # Add more models
->>>>>>> project_setup
