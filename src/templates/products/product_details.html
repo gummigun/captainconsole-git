@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>This is a headline from product_details.html</h3>
+    <h4>Product: {{ product.name }}</h4>
+    <p>Category: {{ product.category }}</p>
+    <p>Price: ${{ product.price }}</p>
+    {% for product_image in product.productimagetest_set.all %}
+        <img src="{{ product_image.image }}" class="product-img" alt="" />
+    {% endfor %}
+{% endblock %}
