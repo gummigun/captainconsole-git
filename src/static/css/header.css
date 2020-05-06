@@ -1,0 +1,149 @@
+body {
+  background-color: white;
+  margin: 0;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+
+.Header {
+  display: flex;
+  flex-direction: column;
+}
+
+.Header_logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  margin: 0px 30px
+}
+
+.Header__beautySpace {
+  background-color: #dedcdc;
+  height: 25px;
+  width: 100%;
+}
+
+.Header__body {
+  background-color: white;
+  height: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Header__logoImg {
+  width: 50px;
+  height: 50px;
+  margin: 0px 40px 0px 60px;
+}
+
+.Header__title {
+  margin: 0px 45px 0px 0px;
+  color: black;
+  font-size: 25px;
+}
+
+
+.Header__searchForm {
+  height: 28px;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+.Header__searchWrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.Header__searchWrapperInner {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Header__searchButton {
+  background-color: white;
+  color: #ECA05A;
+  border-color: #ECA05A;
+}
+
+.Header__searchButton:active {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.Header__searchButton:hover {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+.Header__searchHistory{
+  font-size: 13px;
+}
+
+.Header__userWrapper {
+  margin-left: 10px;
+}
+
+.User__login {
+  border: none;
+  background-color: white;
+  padding: 0;
+
+}
+
+.User__login:hover{
+  color:  #ECA05A;
+}
+
+.User__createAccount {
+  border: none;
+  background-color: white;
+  padding: 0;
+
+}
+.User__createAccount:hover {
+  color:  #ECA05A;
+}
+
+.Header__navbar {
+  background-color: #61646d;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Header__navbarBorder {
+  display: block;
+  background-color: #FFFFFF;
+  width: 1px;
+}
+
+.Header__navbarItem {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100%;
+  padding: 15px;
+}
+
+.Header__navbarItem:active {
+  background-color: lightgrey
+}
+
+.Header__navbarItem:hover {
+  background-color: lightgrey;
+  color: #61646d;
+}
