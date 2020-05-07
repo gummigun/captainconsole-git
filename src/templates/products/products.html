@@ -5,7 +5,7 @@
         <h1>Hello products page index!</h1>
         <h2>Edit index.html under products/templates/products to change this content</h2>
     </div>
-    <div>
+    <div class="products">
         {% for product in products %}  <!-- Python logic to loop through products container in src/products/views.py -->
             {% include 'products/single_product.html' with product=product %}
         {% endfor %}
