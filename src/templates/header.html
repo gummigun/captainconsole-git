@@ -1,0 +1,64 @@
+{% load static %}
+<header class="Header">
+  <div class="Header__beautySpace"></div>
+
+  <div class="Header__body">
+    <a href="#"><img class="Header_logo" src="{% static "images/captain_console.png" %}" alt="Captain Console logo"></img></a>
+    <a href="#"><h1 class="Header__title">Captain Console</h1></a>
+    <div class="Header__searchWrapper">
+      <!--
+          <div class="Header__searchWrapperInner">
+          <input class="Header__searchForm" type="text"  name="search">
+          <button class="Header__searchButton">search</button>
+        </div>
+ -->
+ <form class="form-inline my-2 my-lg-0">
+  <input class="Header__searchForm form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="Header__searchButton btn btn-outline my-2 my-sm-0" type="submit">Search</button>
+</form>
+      <span class="Header__searchHistory">search history</span>
+    </div>
+    <div class="Header__userWrapper">
+      <a href="#login_page"><button class="User__login">login |</button></a>
+        <a href="#create_account_page"> <button class="User__createAccount">create account</button></a>
+    </div>
+  </div>
+
+
+  <div class="Header__navbar">
+    <a href="#" class="Header__navbarItem">
+      VIDEO GAMES
+    </a>
+
+    <span class="Header__navbarBorder"></span>
+
+    <a href="#"class="Header__navbarItem">
+      CONSOLES
+    </a>
+
+    <span class="Header__navbarBorder"></span>
+
+    <a href="#" class="Header__navbarItem">
+      ACCESSORIES
+    </a>
+
+    <span class="Header__navbarBorder"></span>
+
+    <a href="#" class="Header__navbarItem">
+      BUY USED
+    </a>
+
+    <span class="Header__navbarBorder"></span>
+
+    <a href="#" class="Header__navbarItem">
+      ABOUT US
+    </a>
+
+    <span class="Header__navbarBorder"></span>
+
+    <a href="#" class="Header__navbarItem">
+      Cart total
+    </a>
+  </div>
+
+</header>
