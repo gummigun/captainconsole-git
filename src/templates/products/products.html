@@ -2,10 +2,8 @@
 {% block content %}
     <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
     <div class="captain">  <!-- Our custom css can be found in src/static/css -->
-        <h1>Hello products page index!</h1>
-        <h2>Edit index.html under products/templates/products to change this content</h2>
     </div>
-    <div>
+    <div class="Products">
         {% for product in products %}  <!-- Python logic to loop through products container in src/products/views.py -->
             {% include 'products/single_product.html' with product=product %}
         {% endfor %}
