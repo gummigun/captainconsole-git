@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from products.models import Products
+from profiles.models import Profiles
 from .forms import RegisterForm
 
 def index(request):
