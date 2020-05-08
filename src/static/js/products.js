@@ -9,17 +9,19 @@ $(document).ready(function() {
             type: 'GET',
             success: function(resp) {
                 var newHtml = resp.data.map(d => {
-                    return `<div class="single-product">
-                                <a href="/products/$(d.id)">
-                                    <img class="product-img" src="${d.firstImage}" alt=""/>
-                                    <h4>Product: ${ d.name }</h4>
-                                    <p>Category: ${ d.category }</p>
-                                    <p>Price: ${ d.price }</p>
-                                    <p>Description: ${ d.description }</p>
-                                </a>
-                            </div>`
+                    return `<a href="/products/{{ product.id }}" class="SingleProduct">
+                                <img class="SingleProduct__image"
+                                  src="{{ product.productimage_set.first.images }}" alt="">
+                                <div class="SingleProduct__generalDesrciption">
+                                  <div class="SingleProduct__namePriceWrapper">
+                                    <span class="SingleProduct__name">{{ product.name }}</span>
+                                    <span class="SingleProduct__price">{{ product.price }}</span>
+                                  </div>
+                                  <span class="SingleProduct__type">{{ product.category }}</span>
+                                </div>
+                            </a>`
                 });
-                $('.products').html(newHtml.join(''));
+                $('.Products').html(newHtml.join(''));
                 $('#search-box').val('');
             },
             error: function(xhr, status, error) {
