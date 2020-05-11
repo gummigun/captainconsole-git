@@ -1,0 +1,62 @@
+body {
+  background-color: white;
+  margin: 0;
+}
+
+.Footer__beautySpace {
+    background-color: #FFFFFF;
+    padding: 10px;
+  }
+
+  .Footer__body {
+    background-color: #F1EFEF;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .Footer_logo {
+    margin: 40px;
+    border-radius: 100%;
+  }
+
+  .About {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+  }
+
+  .Contact {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+  }
+
+  .Social {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+  }
+
+  .Footer__copyright {
+    background-color: #DEDCDC;
+    display: flex;
+    justify-content: center;
+    height: 50%;
+    padding: 10px;
+  }
+
+  .Facebook_logo {
+      width: 30px;
+  }
+
+  .Instagram_logo {
+      width: 30px;
+  }
+
+  .Pinterest_logo {
+      width: 30px;
+  }
+
+.Email_logo {
+  width: 25px;
+}
