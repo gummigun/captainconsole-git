@@ -1,20 +1,8 @@
 .captain {
-    border-bottom: cornflowerblue 3px;
+    border-bottom: #cornflowerblue 3px;
 }
 
 .single-product {
-    background-color: lightgray;
-    border: darkgray 5px;
-}
-
-img {
-    max-height: 250px !important;
-    max-width: 250px !important;
-}
-.product-img {
-
-}
-
-footer {
-    background-color: greenyellow;
+    background-color: #7B7B7B;
+    border: #7B7B7B 5px;
 }
