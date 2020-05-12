@@ -18,12 +18,18 @@
 </form>
       <span class="Header__searchHistory">search history</span>
     </div>
-    <div class="Header__userWrapper">
-      <a href="profiles/login"><button class="User__login">login |</button></a>
-        <a href="profiles/register"> <button class="User__createAccount">create account</button></a>
-    </div>
+    {% if request.path == '/profiles/'  %}
+        <div class="Header__userWrapper">
+            <a href="/login"><button class="User__login">login |</button></a>
+            <a href="/register"> <button class="User__createAccount">create account</button></a>
+        </div>
+    {% else %}
+        <div class="Header__userWrapper">
+            <a href="/profiles/login"><button class="User__login">login |</button></a>
+            <a href="/profiles/register"> <button class="User__createAccount">create account</button></a>
+        </div>
+    {%  endif %}
   </div>
-
 
   <div class="Header__navbar">
     <a href="#" class="Header__navbarItem" id="video-games">

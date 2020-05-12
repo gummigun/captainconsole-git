@@ -6,6 +6,11 @@ def index(request):
     context = {'profiles': Profiles.objects.all().order_by('name')}
     return render(request, 'profiles/profiles.html', context)
 
+
+def login(request):
+    return render(request, 'profiles/sign_in.html')
+
+
 # /profile/1
 def get_profile_by_id(request, id):
     return render(request, 'profiles/profiles_details.html', {
