@@ -2,12 +2,15 @@
 {% load crispy_forms_filters %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% load crispy_forms_tags %}
 {% block content %}
+    <!-- Display error if form has errors-->
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
     <form method="post">
+    {% csrf_token %}
     <div class="Login__Page">
         <div class="Login__PageInput">
             <span class="WelcomeBack__msg">Sign In</span>
-
-            {% csrf_token %}
             {{ form|crispy }}
             {% if request.path == '/profiles/'  %}
             <p>Don't have an account? Create one <a href="/register">here</a></p>
