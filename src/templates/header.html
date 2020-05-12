@@ -3,8 +3,11 @@
   <div class="Header__beautySpace"></div>
 
   <div class="Header__body">
-    <a href="#"><img class="Header_logo" src="{% static "images/captain_console.png" %}" alt="Captain Console logo"></img></a>
-    <a href="#"><h1 class="Header__title">Captain Console</h1></a>
+    <a href="/"><img class="Header_logo" src="{% static "images/captain_console.png" %}"
+        alt="Captain Console logo"></img></a>
+    <a href="/">
+      <h1 class="Header__title">Captain Console</h1>
+    </a>
     <div class="Header__searchWrapper">
       <!--
           <div class="Header__searchWrapperInner">
@@ -12,52 +15,54 @@
           <button class="Header__searchButton">search</button>
         </div>
  -->
- <form class="form-inline my-2 my-lg-0">
-  <input class="Header__searchForm form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box">
-  <button class="Header__searchButton btn btn-outline my-2 my-sm-0" type="submit" id="search-btn">Search</button>
-</form>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="Header__searchForm form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+          id="search-box">
+        <button class="Header__searchButton btn btn-outline my-2 my-sm-0" type="submit" id="search-btn">Search</button>
+      </form>
       <span class="Header__searchHistory">search history</span>
     </div>
     <div class="Header__userWrapper">
-      <a href="profiles/login"><button class="User__login">login |</button></a>
-        <a href="profiles/register"> <button class="User__createAccount">create account</button></a>
+      <a href="/profiles/login"><button class="User__login">login |</button></a>
+      <a href="/profiles/register"> <button class="User__createAccount">create account</button></a>
     </div>
   </div>
 
 
   <div class="Header__navbar">
     <a href="#" class="Header__navbarItem" id="video-games">
-    VIDEO GAMES
+      VIDEO GAMES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="consoles">
-    CONSOLES
+      CONSOLES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="accessories">
-    ACCESSORIES
+      ACCESSORIES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="used">
-    BUY USED
+      BUY USED
     </a>
 
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="about">
-    ABOUT US
+      ABOUT US
     </a>
 
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="cart">
-    Cart total
+      <img class="Shopping_Cart" src="{% static "images/shopping_cart.svg" %}" alt="Shopping cart"></img>
+      Cart total
     </a>
   </div>
 

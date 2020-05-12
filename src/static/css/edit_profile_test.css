@@ -1,0 +1,51 @@
+.edit_profile {
+  margin: 20px auto;
+  width: 40%;
+}
+
+.Welcome_editMsg {
+  font-size: x-large;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.update__button {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.update__button:hover {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.update__button:activate {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.deactivate__button {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.deactivate__button:hover {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.deactivate__button:activate {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.EditProfile__buttons {
+  display: flex;
+  flex-flow: column;
+}

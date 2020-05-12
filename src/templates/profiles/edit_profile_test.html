@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="edit_profile">
+    <div class="Welcome_EditMsg"> Feel free to edit any details!
+    </div>
+
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="EditProfile__buttons">
+            <button type="submit" class="btn btn-primary update__button">Update</button>
+
+            <button type="submit" class="btn btn-primary deactivate__button">Deactivate account</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

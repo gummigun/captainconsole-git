@@ -1,83 +1,36 @@
-<!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
+{% load static %}
+<!doctype html>
 
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
 
-    <!-- Grid row -->
-    <div class="row">
+<footer class="Footer">
 
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Content -->
-        <h5 class="text-uppercase">Footer Content</h5>
-        <p>Here you can use rows and columns to organize your footer content.</p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
+  <div class="Footer__beautySpace"></div>
+  <div class="Footer__body">
+    <a href="#"><img class="Footer_logo" src="{% static "images/captain_console.png" %}"
+        alt="Captain Console logo"></img></a>
+    <div class="About">
+      <span>ABOUT CAPTAIN CONSOLE</span>
+      <span>About us</span>
     </div>
-    <!-- Grid row -->
-
+    <div class="Contact">
+      <span>CONTACT US</span>
+      <span>captain@console.com</span>
+    </div>
+    <div class="Social">
+      <span>GET SOCIAL</span>
+      <div class="Footer__socialImages">
+        <a href="#"><img class="Facebook_logo" src="{% static "images/facebook_logo.png" %}"
+            alt="Facebook logo"></img></a>
+        <a href="#"><img class="Instagram_logo" src="{% static "images/instagram_logo.png" %}"
+            alt="Instagram logo"></img></a>
+        <a href="#"><img class="Pinterest_logo" src="{% static "images/pinterest_logo.png" %}"
+            alt="Pinterest logo"></img></a>
+      </div>
+    </div>
   </div>
-  <!-- Footer Links -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="#"> captainconsole.com</a>
+  <div class="Footer__copyright">
+    <span>2020 Copyright: Captain Console</span>
   </div>
-  <!-- Copyright -->
-
 </footer>
-<!-- Footer -->
+
+</html>

@@ -1,0 +1,57 @@
+body {
+  background-color: white;
+}
+
+.Footer__beautySpace {
+  background-color: white;
+}
+
+.Footer__body {
+  background-color: #F1EFEF;
+  display: flex;
+  flex-direction: row;
+}
+
+.Footer_logo {
+  margin: 40px;
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+}
+
+.About {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+.Contact {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+.Social {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+.Footer__copyright {
+  background-color: #DEDCDC;
+  display: flex;
+  justify-content: center;
+  height: 25px;
+}
+
+.Facebook_logo {
+  width: 30px;
+}
+
+.Instagram_logo {
+  width: 30px;
+}
+
+.Pinterest_logo {
+  width: 30px;
+}
