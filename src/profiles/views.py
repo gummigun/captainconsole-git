@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
+
 from profiles.models import Profiles
 from .forms import RegisterForm
 
@@ -7,8 +9,20 @@ def index(request):
     return render(request, 'profiles/profiles.html', context)
 
 
-def login(request):
-    return render(request, 'profiles/sign_in.html')
+def take_login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return render(request, '')
+    else:
+        get_object_or_404(Profiles, pk=id)
+
+
+def take_logout(request):
+    logout(request)
+    return render(request, '')
 
 
 # /profile/1
@@ -22,7 +36,7 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-            return redirect("/")
+            return redirect("/profiles/login")
     else:
         form = RegisterForm()
 
