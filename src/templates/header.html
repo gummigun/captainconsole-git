@@ -6,25 +6,40 @@
     <a href="#"><img class="Header_logo" src="{% static "images/captain_console.png" %}" alt="Captain Console logo"></img></a>
     <a href="#"><h1 class="Header__title">Captain Console</h1></a>
     <div class="Header__searchWrapper">
-      <!--
-          <div class="Header__searchWrapperInner">
-          <input class="Header__searchForm" type="text"  name="search">
-          <button class="Header__searchButton">search</button>
+         <form class="form-inline my-2 my-lg-0">
+          <input class="Header__searchForm form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box">
+          <button class="Header__searchButton btn btn-outline my-2 my-sm-0" type="submit" id="search-btn">Search</button>
+        </form>
+        <span class="Header__searchHistory">search history</span>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="Header__userWrapper">
+            <ul class="nav nav-pills">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">USERNAME</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">LINK</a>
+                  <a class="dropdown-item" href="#">LINK</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+              </li>
+            </ul>
         </div>
- -->
- <form class="form-inline my-2 my-lg-0">
-  <input class="Header__searchForm form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box">
-  <button class="Header__searchButton btn btn-outline my-2 my-sm-0" type="submit" id="search-btn">Search</button>
-</form>
-      <span class="Header__searchHistory">search history</span>
-    </div>
-    <div class="Header__userWrapper">
-      <a href="profiles/login"><button class="User__login">login |</button></a>
-        <a href="profiles/register"> <button class="User__createAccount">create account</button></a>
-    </div>
+    {% else %}
+        {% if request.path == '/profiles/'  %}
+            <div class="Header__userWrapper">
+                <a href="/login"><button class="User__login">login |</button></a>
+                <a href="/register"> <button class="User__createAccount">create account</button></a>
+            </div>
+        {% else %}
+            <div class="Header__userWrapper">
+                <a href="/profiles/login"><button class="User__login">login |</button></a>
+                <a href="/profiles/register"> <button class="User__createAccount">create account</button></a>
+            </div>
+        {%  endif %}
+    {% endif %}
   </div>
-
-
   <div class="Header__navbar">
     <a href="#" class="Header__navbarItem" id="video-games">
     VIDEO GAMES
@@ -60,5 +75,4 @@
     Cart total
     </a>
   </div>
-
 </header>

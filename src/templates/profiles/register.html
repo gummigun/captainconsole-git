@@ -1,10 +1,16 @@
-{% extends 'base.html' %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% load crispy_forms_tags %}
 {% block content %}
     <form method="post" class="form-group">
     {% csrf_token %}
-    {{ form|crispy }}
-        <p>Have an account? Login <a href="profiles/login">here</a></p>
+    {{ form|crispy }} <!-- Displays the form -->
+        {% if request.path == '/profiles/'  %}
+        <p>Have an account? Login <a href="/login">here</a></p>
+        {% else %}
+        <p>Have an account? Login <a href="/profiles/login">here</a></p>
+        {% endif %}
+
     <button type="submit" class="btn btn-primary">Register</button>
     </form>
 {% endblock %}
