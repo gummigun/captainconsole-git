@@ -20,13 +20,20 @@
         </div>
         <h6 class="Filter_title">BY PRODUCT CATEGORY</h6>
         <div class="Filter_byCategory">
-            <input type="checkbox" id="Consoles" name="Consoles" value="Consoles">
-            <label for="Consoles">Consoles</label><br>
-            <input type="checkbox" id="Video games" name="Video games" value="Video games">
-            <label for="Video games">Video games</label><br>
-            <input type="checkbox" id="Accessories" name="Accessories" value="Accessories">
-            <label for="Accessories">Accessories</label><br>
-        </div> <!-- Our custom css can be found in src/static/css -->
+            <input type="checkbox" id="pc-consoles" name="Consoles" value="Consoles">
+            <label for="pc-consoles">Consoles</label><br>
+            <input type="checkbox" id="pc-video-games" name="Video games" value="Video games">
+            <label for="pc-video-games">Video games</label><br>
+            <input type="checkbox" id="pc-accessories" name="Accessories" value="Accessories">
+            <label for="pc-accessories">Accessories</label><br>
+        </div>
+        <h6 class="Filter_title">BY CONDITION</h6>
+        <div class="Filter_byCategory">
+            <input type="checkbox" id="cond-new" name="New" value="New">
+            <label for="cond-new">New</label><br>
+            <input type="checkbox" id="cond-used" name="Used" value="Used">
+            <label for="cond-used">Used</label><br>
+        </div><!-- Our custom css can be found in src/static/css -->
     </div>
     <div class="Products">
         {% for product in products %}

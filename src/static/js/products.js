@@ -28,12 +28,14 @@ function do_ajax(e, searchText) {
         })
     }
 
-$(document).ready(function() {
+$(document).ready( function() {
+    console.log( "ready!" );
+
     $('#search-btn').on('click', function(e) {
         console.log('Button pressed');
         e.preventDefault();
         var searchText = $('#search-box').val();
-        $(do_ajax(e, searchText));
+
     });
     $("#video-games").click(function(e){
         console.log('Video games pressed');
@@ -41,7 +43,6 @@ $(document).ready(function() {
         if( pathname.includes('video_games')) {
             e.preventDefault();
         }
-        $(do_ajax(e,'Video Games'));
     });
     $("#consoles").click(function(e){
         console.log('Consoles pressed');
@@ -49,7 +50,7 @@ $(document).ready(function() {
         if( pathname.includes('consoles')) {
             e.preventDefault();
         }
-        do_ajax(e,'Consoles');
+
     });
     $("#accessories").click(function(e){
         console.log('Accessories pressed');
@@ -57,7 +58,6 @@ $(document).ready(function() {
         if( pathname.includes('accessories')) {
             e.preventDefault();
         }
-        do_ajax(e,'Accessories');
     });
     $("#used").click(function(e){
         console.log('Used pressed');
@@ -65,6 +65,22 @@ $(document).ready(function() {
         if( pathname.includes('used')) {
             e.preventDefault();
         }
-        do_ajax(e,'Used');
+
     });
+});
+
+$(window).on('load', function () {
+    console.log('loaded')
+    if( window.location.pathname.includes('video_games')) {
+        $('#pc-video-games').prop('checked', true);
+    }
+    else if( window.location.pathname.includes('consoles')) {
+        $('#pc-consoles').prop('checked', true);
+    }
+    else if( window.location.pathname.includes('accessories')) {
+        $('#pc-accessories').prop('checked', true);
+    }
+    else if( window.location.pathname.includes('used')) {
+        $('#cond-used').prop('checked', true);
+    }
 });
