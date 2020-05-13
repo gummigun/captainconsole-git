@@ -51,7 +51,7 @@ def accessories(request):
 
 def used(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    print('consoles')
+    print('used')
     cat = [1, 2, 3]
     search_filter = ''
     cond = [2]
