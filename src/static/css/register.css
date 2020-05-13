@@ -1,0 +1,28 @@
+.signup {
+  margin: 20px auto;
+  width: 40%;
+}
+
+.Welcome_signupMsg {
+  font-size: x-large;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.signup__button {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.signup__button:hover {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.signup__button:activate {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}

@@ -3,22 +3,26 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <!-- Display error if form has errors-->
+   
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
+    <div class="login">
+        <div class="Welcome_loginMsg">Sign in!</div>
     <form method="post">
     {% csrf_token %}
-    <div class="Login__Page">
+    
         <div class="Login__PageInput">
-            <span class="WelcomeBack__msg">Sign In</span>
+           
             {{ form|crispy }}
             {% if request.path == '/profiles/'  %}
-            <p>Don't have an account? Create one <a href="/register">here</a></p>
+            <p>Don't have an account? Create one <a class="link_href" href="/register">here</a></p>
             {% else %}
-            <p>Don't have an account? Create one <a href="/profiles/register">here</a></p>
+            <p>Don't have an account? Create one <a class="link_href" href="/profiles/register">here</a></p>
             {% endif %}
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary login__button">Sign in</button>
         </div>
-      </div>
+     
     </form>
+</div>
 {% endblock %}

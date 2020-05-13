@@ -15,6 +15,7 @@
   height: 75%;
   display: flex;
   margin: auto;
+  max-width: 100%;
 }
 
 .SingleProduct__generalDesrciption {
