@@ -1,11 +1,38 @@
-{% extends 'base.html' %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% extends 'base.html' %}
+<!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% block content %}
-    <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
-    <div class="captain">  <!-- Our custom css can be found in src/static/css -->
+<!-- Write HTML for the block content here. Can also use python logic (see example below) -->
+<div class="Filter_container">
+    <div class="Filters">
+        <div class="Button_wrapper"><button class="Cart__button">View cart</button>
+            <button class="Cart__button">Checkout</button>
+        </div>
+        <h4 class="QuickFilter_title">QUICK FILTERS</h4>
+        <h6 class="Filter_title">BY CONSOLE</h6>
+        <div class="Filter_byConsole">
+                <input type="checkbox" id="NES" name="NES" value="NES">
+                <label for="NES">NES</label><br>
+                <input type="checkbox" id="SEGA" name="SEGA" value="SEGA">
+                <label for="SEGA">SEGA</label><br>
+                <input type="checkbox" id="Gameboy" name="Gameboy" value="Gameboy">
+                <label for="Gameboy">Gameboy</label><br>
+            
+        </div>
+        <h6 class="Filter_title">BY PRODUCT CATEGORY</h6>
+        <div class="Filter_byCategory">
+            <input type="checkbox" id="Consoles" name="Consoles" value="Consoles">
+            <label for="Consoles">Consoles</label><br>
+            <input type="checkbox" id="Video games" name="Video games" value="Video games">
+            <label for="Video games">Video games</label><br>
+            <input type="checkbox" id="Accessories" name="Accessories" value="Accessories">
+            <label for="Accessories">Accessories</label><br>
+        </div> <!-- Our custom css can be found in src/static/css -->
     </div>
     <div class="Products">
-        {% for product in products %}  <!-- Python logic to loop through products container in src/products/views.py -->
-            {% include 'products/single_product.html' with product=product %}
+        {% for product in products %}
+        <!-- Python logic to loop through products container in src/products/views.py -->
+        {% include 'products/single_product.html' with product=product %}
         {% endfor %}
     </div>
+</div>
 {% endblock %}

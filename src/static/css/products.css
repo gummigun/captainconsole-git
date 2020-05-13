@@ -1,4 +1,64 @@
+.Filter_container {
+  display: flex;
+}
+
+.Filters {
+  background-color: #F1EFEF;
+  min-width: 200px;
+  padding: 0 21px;
+}
+
+.QuickFilter_title{
+  font-size: 21px;
+  margin: auto;
+  padding-bottom: 25px;
+  text-align: center;
+  font-weight: 400;
+}
+.Filter_title{
+  font-weight: bold;
+}
 .Products {
   display: flex;
   flex-wrap: wrap;
+  max-width: 960px;
+  justify-content: center;
+}
+
+.Cart__button {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  margin: 3px;
+  width: 80%;
+}
+
+.Cart__button:hover {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.Cart__button:activate {
+  background-color: #ECA05A;
+  border-color: #ECA05A;
+  color: white;
+}
+
+.Button_wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 21px 0 30px 0px;
+}
+
+.Filter_byConsole {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Filter_byCategory {
+  margin-top: 15px;
 }
