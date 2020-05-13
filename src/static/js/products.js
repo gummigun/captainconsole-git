@@ -5,7 +5,7 @@ $(document).ready(function() {
         var searchText = $('#search-box').val();
         console.log(searchText);
         $.ajax( {
-            url: '/products/?search_filter=' + searchText,
+            url: '/products/search/?query=' + searchText,
             type: 'GET',
             success: function(resp) {
                 console.log(resp.data)
@@ -31,11 +31,13 @@ $(document).ready(function() {
         });
     });
     function do_ajax(e, searchText) {
+        console.log(searchText)
         $.ajax( {
-            url: '/products/?search_filter=' + searchText,
+            url: '/products/search/?query=' + searchText,
             type: 'GET',
             success: function(resp) {
-                console.log(resp.data)
+                console.log('data', resp.data)
+
                 var newHtml = resp.data.map(d => {
                     return `<a href="/products/${ d.id }" class="SingleProduct">
                                 <img class="SingleProduct__image"
@@ -60,6 +62,7 @@ $(document).ready(function() {
     $("#video-games").click(function(e){
         console.log('Video games pressed');
         e.preventDefault();
+        document.location.hash = "products/"
         do_ajax(e,'Video Games');
     });
     $("#consoles").click(function(e){
