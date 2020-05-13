@@ -3,11 +3,6 @@ body {
   margin: 0;
 }
 
-a:hover {
-  color: white;
-  text-decoration: none;
-}
-
 
 .Header {
   display: flex;
