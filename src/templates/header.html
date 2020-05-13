@@ -27,7 +27,7 @@
             </ul>
         </div>
     {% else %}
-        {% if request.path == '/profiles/'  %}
+        {% if request.path != '/' or request.path != '/products/'  %}
             <div class="Header__userWrapper">
                 <a href="/login"><button class="User__login">login |</button></a>
                 <a href="/register"> <button class="User__createAccount">create account</button></a>
@@ -41,31 +41,31 @@
     {% endif %}
   </div>
   <div class="Header__navbar">
-    <a href="/products/" class="Header__navbarItem" id="video-games">
+    <a href="{% url 'games' %}" class="Header__navbarItem" id="video-games">
     VIDEO GAMES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
-    <a href="#" class="Header__navbarItem" id="consoles">
+    <a href="{% url 'consoles' %}" class="Header__navbarItem" id="consoles">
     CONSOLES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
-    <a href="#" class="Header__navbarItem" id="accessories">
+    <a href="{% url 'accessories' %}" class="Header__navbarItem" id="accessories">
     ACCESSORIES
     </a>
 
     <span class="Header__navbarBorder"></span>
 
-    <a href="#" class="Header__navbarItem" id="used">
+    <a href="{% url 'used' %}" class="Header__navbarItem" id="used">
     BUY USED
     </a>
 
     <span class="Header__navbarBorder"></span>
 
-    <a href="#" class="Header__navbarItem" id="about">
+    <a href="{% url 'index' %}" class="Header__navbarItem" id="about">
     ABOUT US
     </a>
 
@@ -76,4 +76,5 @@
     Cart total
     </a>
   </div>
+
 </header>
