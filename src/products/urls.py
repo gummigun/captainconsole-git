@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     # Home page url pattern
     path('', views.index, name="index"),
+    re_path(r'^all/$', views.products, name="products"),
     re_path(r'^video_games/$', views.games, name="games"),
     re_path(r'^consoles/$', views.consoles, name="consoles"),
     re_path(r'^accessories/$', views.accessories, name="accessories"),

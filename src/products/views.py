@@ -6,9 +6,12 @@ from products.models import Products, ProductImage, ProductCategories, ProductRe
 
 class DataContainer():
     def __init__(self):
-        self.DATA = []
-        self.FIRST_LOAD = True
+        self.ORDER_BY = 'name'
+        self.DATA = Products.objects.order_by(self.ORDER_BY)
         self.FILTERED = []
+        self.CATEGORIES = 2
+        self.CONSOLES = ''
+        self.CONDITIONS = 3
 
     def set_data(self, data):
         self.DATA = data
@@ -19,14 +22,19 @@ class DataContainer():
     def get_first(self):
         return self.FIRST_LOAD
 
+    def set_order_by(self, val):
+        self.ORDER_BY = val
+
+    def get_order_by(self):
+        return self.ORDER_BY
+
 PRODUCTS = DataContainer()
-ORDER_BY = 'name'
 
 def index(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     print('index')
     print('Fetching initial products data.')
-    query = Products.objects.order_by(ORDER_BY)
+
     # products = [
     #     {
     #         'id': x.id,
@@ -65,43 +73,75 @@ def index(request):
 
     else:
         context = {
-            'products': query,
+            'products': PRODUCTS.get_data(),
         }
         return render(request, 'index.html', context)
 
 
+def products(request):
+    # This function determines what is shown when the '/' or '/products/' indexes are requested.
+    print('products')
+    print('Fetching search results.')
+    if 'order' in request.GET:
+        print('changing order')
+        val = request.GET['order'].lower()
+        print(val)
+        PRODUCTS.set_order_by(val)
+        return order_query(request)
+
+    elif 'search' in request.GET:
+        query = request.GET['search']
+        PRODUCTS.FILTERED = Products.objects.filter(name__icontains=query).filter(console__icontains=query).filter(description__icontains=query).order_by(PRODUCTS.get_order_by())
+
+        print('Fetching done.')
+        context = {
+            'products': PRODUCTS.FILTERED,
+        }
+        return render(request, 'products/products.html', context)
+    elif 'filter' in request.GET:
+        return filter_query(request)
+
+
 def games(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    filtered = Products.objects.filter(category__exact=2).order_by(ORDER_BY)
+    PRODUCTS.CATEGORIES = 2
+    PRODUCTS.FILTERED = PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).order_by(PRODUCTS.get_order_by())
+    print(PRODUCTS.FILTERED)
     context = {
-        'products': filtered,
+        'products': PRODUCTS.FILTERED,
     }
     return render(request, 'products/products.html', context)
 
 
 def consoles(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    filtered = Products.objects.filter(category__exact=1).order_by(ORDER_BY)
+    PRODUCTS.CATEGORIES = 1
+    PRODUCTS.FILTERED = PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).order_by(PRODUCTS.get_order_by())
+    print(PRODUCTS.FILTERED)
+
     context = {
-        'products': filtered,
+        'products': PRODUCTS.FILTERED,
     }
     return render(request, 'products/products.html', context)
 
 
 def accessories(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    filtered = Products.objects.filter(category__exact=3).order_by(ORDER_BY)
+    PRODUCTS.CATEGORIES = 3
+    PRODUCTS.FILTERED = PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).order_by(PRODUCTS.get_order_by())
+    print(PRODUCTS.FILTERED)
+
     context = {
-        'products': filtered,
+        'products': PRODUCTS.FILTERED,
     }
     return render(request, 'products/products.html', context)
 
 
 def used(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    filtered = Products.objects.filter(condition__exact=2).order_by(ORDER_BY)
+    PRODUCTS.FILTERED = PRODUCTS.get_data().filter(condition__exact=2).order_by(PRODUCTS.get_order_by())
     context = {
-        'products': filtered,
+        'products': PRODUCTS.FILTERED,
     }
     return render(request, 'products/products.html', context)
 
@@ -112,81 +152,77 @@ def search_query(request):
     # Define filtering capabilities here.
     if 'query' in request.GET:
         search_filter = request.GET['query']  # Grabs what's being filtered/searched
-        print(search_filter)
-        data = PRODUCTS.get_data()
-        filtered = list(filter(lambda results: search_filter.lower() in results['name'].lower(), data))
-        print(filtered)
-        return JsonResponse({'data': filtered})
-
-
-
-def process_filter(filt_str):
-    results = {
-        'categories': '',
-        'consoles': '',
-        'condition': '',
-    }
-    print(filt_str)
-    processed = filt_str.split('$')
-    for item in processed:
-        # Process categories selected
-        if 'pc-' in item:
-            # Product category prefix found
-            item = item.replace('pc-', '')
-            if '-' in item:
-                item = item.replace('-', ' ')
-            results['categories'] += item + '-'
-
-        elif 'cond-' in item:
-            item = item.replace('cond-', '')
-            results['condition'] += item + '-'
-
-        else:
-            results['consoles'] += item + '-'
-
-    print(results)
-    return results
-
+        products = [
+            {
+                'id': x.id,
+                'name': x.name,
+                'category': x.category.name,
+                'console': x.console,
+                'manufacturer': x.manufacturer,
+                'price': x.price,
+                'shipping': x.shpping_code.code_name,
+                'condition': x.condition.condition,
+                'description': x.description,
+                'firstImage': x.productimage_set.first().images,
+            } for x in PRODUCTS.get_data().filter(name__icontains=search_filter.lower()).order_by(PRODUCTS.get_order_by())
+        ]
+        return JsonResponse({'data': products})
 
 
 def filter_query(request):
-    if 'filter' in request.GET:
-        search_filter = request.GET['filter']  # Grabs the string after filter= in the request. Splits multiple checkboxes.
-        filterby = request.GET['filterby']  # Grabs the string after filterby= in the request
-        print(search_filter, filterby)
+    search_filter = request.GET['filter']  # Grabs the string after filter= in the request. Splits multiple checkboxes.
+    filterby = request.GET['filterby']  # Grabs the string after filterby= in the request
+    print('from get', search_filter, filterby)
+    print(PRODUCTS.CATEGORIES, PRODUCTS.CONSOLES, PRODUCTS.CONDITIONS)
+    print(PRODUCTS.FILTERED)
+    if filterby == 'category':
+        PRODUCTS.CATEGORIES = search_filter
 
-        processed = process_filter(search_filter)
-        # Grab the data
-        data = PRODUCTS.get_data()
+    if filterby == 'console':
+        PRODUCTS.CONSOLES = search_filter
 
-        # Checking more than one checkbox within each filter category should expand the selection.
-        # Checking more than one filter category should narrow the selection.
+    if filterby == 'condition':
+        if search_filter == 'New':
+            PRODUCTS.CONDITIONS = 1
+        elif search_filter == 'Used':
+            PRODUCTS.CONDITIONS = 2
 
-        filtered = []
-        cons = []
-        all_consoles = processed['consoles'].split('-')
-        all_conditions = processed['condition'].split('-')
+    print('after', PRODUCTS.CATEGORIES, PRODUCTS.CONSOLES, PRODUCTS.CONDITIONS)
+    print(PRODUCTS.FILTERED)
 
-        print(all_consoles)
-        if len(all_consoles) > 1:
-            for c in all_consoles:
-                if c != '':
-                    cons += list(filter(lambda results: c.lower() in results['console'].lower(), data))
-        else:
-            cons = data
+    products = [
+        {
+            'id': x.id,
+            'name': x.name,
+            'category': x.category.name,
+            'console': x.console,
+            'manufacturer': x.manufacturer,
+            'price': x.price,
+            'shipping': x.shpping_code.code_name,
+            'condition': x.condition.condition,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().images,
+        } for x in PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).filter(console__icontains=PRODUCTS.CONSOLES).filter(condition__lte=PRODUCTS.CONDITIONS).order_by(PRODUCTS.get_order_by())
+    ]
+    return JsonResponse({'data': products})
 
-        print(cons)
-        print(all_conditions)
-        if len(all_conditions) > 1:
-            for cond in all_conditions:
-                if cond != '':
-                    filtered += list(filter(lambda results: cond.lower() in results['condition'].lower(), cons))
-        else:
-            filtered = cons
-        print(filtered)
-
-        return JsonResponse({'data': filtered})
-
+def order_query(request):
+    search_filter = request.GET['order']  # Grabs the string after filter= in the request. Splits multiple checkboxes.
+    products = [
+        {
+            'id': x.id,
+            'name': x.name,
+            'category': x.category.name,
+            'console': x.console,
+            'manufacturer': x.manufacturer,
+            'price': x.price,
+            'shipping': x.shpping_code.code_name,
+            'condition': x.condition.condition,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().images,
+        } for x in PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).filter(console__icontains=PRODUCTS.CONSOLES).filter(condition__lte=PRODUCTS.CONDITIONS).order_by(PRODUCTS.get_order_by())
+    ]
+    return JsonResponse({'data': products})
 
 # /products/1
 def get_product_by_id(request, id):

@@ -37,10 +37,24 @@ function get_data(searchText) {
 }
 
 function filter_data(items, filter_type) {
-    let items_str = Array.from(items).join('$')
-    console.log(items_str)
     $.ajax( {
-        url: '/products/?filter=' + items_str + '&filterby=' + filter_type,
+        url: '/products/all/?filter=' + items + '&filterby=' + filter_type,
+        type: 'GET',
+        success: function(resp) {
+            console.log('data', resp.data)
+            products_filtered['data'] = resp.data
+            map_data()
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+            return {}
+        }
+    });
+}
+
+function order_data(items) {
+    $.ajax( {
+        url: '/products/all/?order=' + items,
         type: 'GET',
         success: function(resp) {
             console.log('data', resp.data)
@@ -59,9 +73,17 @@ $(document).ready( function() {
 
     $('#search-btn').on('click', function(e) {
         console.log('Button pressed');
-        e.preventDefault();
+        var pathname = window.location.pathname;
         var searchText = $('#search-box').val();
-        get_data( searchText)
+
+        e.preventDefault();
+
+        if( pathname.includes('products')) {
+            get_data(searchText)
+
+        } else {
+            window.location.href = '/products/all/?search='+searchText;
+        }
     });
     $("#video-games").click(function(e){
         console.log('Video games pressed');
@@ -93,6 +115,13 @@ $(document).ready( function() {
         }
 
     });
+    $('.Orderby_button').click(function() {
+        let val = $(this).attr("value");
+        var pathname = window.location.pathname;
+        if( pathname.includes('products')) {
+            order_data(val)
+        }
+    });
 });
 
 $(window).on('load', function () {
@@ -112,52 +141,32 @@ $(window).on('load', function () {
     }
 });
 
-let filtered = new Set()
-
 $('#byConsole').on('click', function() {
-    $("input:checkbox").each(function(){
-        console.log('Checkbox pressed');
-
+    $("#byConsole").children('input').each(function(){
+        console.log('Console pressed');
         let $this = $(this);
-
         if($this.is(":checked")) {
-            filtered.add($this.attr("id"));
-        } else {
-            filtered.delete($this.attr("id"))
+            filter_data($this.attr("value"), 'console')
         }
-
     });
-    filter_data(filtered, 'console')
 });
 
 $('#byCategory').on('click', function() {
-    $("input:checkbox").each(function(){
-        console.log('Checkbox pressed');
-
+    $("#byCategory").children('input').each(function(){
+        console.log('Category pressed');
         let $this = $(this);
-
         if($this.is(":checked")) {
-            filtered.add($this.attr("id"));
-        } else {
-            filtered.delete($this.attr("id"))
+            filter_data($this.attr("value"), 'category')
         }
-
     });
-    filter_data(filtered, 'category')
 });
 
 $('#byCondition').on('click', function() {
-    $("input:checkbox").each(function(){
-        console.log('Checkbox pressed');
-
+    $("#byCondition").children('input').each(function(){
+        console.log('Condition pressed');
         let $this = $(this);
-
         if($this.is(":checked")) {
-            filtered.add($this.attr("id"));
-        } else {
-            filtered.delete($this.attr("id"))
+            filter_data($this.attr("value"), 'condition')
         }
-
     });
-    filter_data(filtered, 'condition')
 });
