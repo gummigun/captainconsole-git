@@ -40,6 +40,11 @@
         </div><!-- Our custom css can be found in src/static/css -->
     </div>
     <div class="Products">
+        <div class="Orderby_Wrapper"> ORDER BY:
+            <button class="Orderby_button" id="ordername">NAME</button>
+            |
+            <button class="Orderby_button" id="orderprice">PRICE</button>
+        </div>
         {% for product in products %}
         <!-- Python logic to loop through products container in src/products/views.py -->
         {% include 'products/single_product.html' with product=product %}

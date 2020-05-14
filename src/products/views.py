@@ -20,35 +20,31 @@ class DataContainer():
         return self.FIRST_LOAD
 
 PRODUCTS = DataContainer()
-
+ORDER_BY = 'name'
 
 def index(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     print('index')
-    if PRODUCTS.get_first():
-        print('Fetching initial products data.')
-        query = Products.objects.order_by('category', 'name')
-        products = [
-            {
-                'id': x.id,
-                'name': x.name,
-                'category': x.category.name,
-                'console': x.console,
-                'manufacturer': x.manufacturer,
-                'price': x.price,
-                'shipping': x.shpping_code.code_name,
-                'condition': x.condition.condition,
-                'description': x.description,
-                'firstImage': x.productimage_set.first().images,
-                'allImages': list(x.productimage_set.values_list('images', flat=True)),
-                'ratings': list(x.productrating_set.values_list('rating', flat=True)),
-                'reviews': list(x.productreview_set.values_list('review', flat=True)),
-            } for x in query
-        ]
-        print('Fetching done.')
-        PRODUCTS.set_data(products)
-        print('Results', products)
-        PRODUCTS.FIRST_LOAD = False
+    print('Fetching initial products data.')
+    query = Products.objects.order_by(ORDER_BY)
+    # products = [
+    #     {
+    #         'id': x.id,
+    #         'name': x.name,
+    #         'category': x.category.name,
+    #         'console': x.console,
+    #         'manufacturer': x.manufacturer,
+    #         'price': x.price,
+    #         'shipping': x.shpping_code.code_name,
+    #         'condition': x.condition.condition,
+    #         'description': x.description,
+    #         'firstImage': x.productimage_set.first().images,
+    #         'allImages': list(x.productimage_set.values_list('images', flat=True)),
+    #         'ratings': list(x.productrating_set.values_list('rating', flat=True)),
+    #         'reviews': list(x.productreview_set.values_list('review', flat=True)),
+    #     } for x in query
+    # ]
+    print('Fetching done.')
 
     if 'query' in request.GET:
         print('search')
@@ -69,20 +65,14 @@ def index(request):
 
     else:
         context = {
-            'products': PRODUCTS.get_data(),
+            'products': query,
         }
         return render(request, 'index.html', context)
 
 
 def games(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    print('video games')
-    data = PRODUCTS.get_data()
-    print(data)
-    print('Starting filter')
-    filtered = list(filter(lambda results: results['category'] == 'Video Games', data))
-    print('Filter done')
-    print(filtered)
+    filtered = Products.objects.filter(category__exact=2).order_by(ORDER_BY)
     context = {
         'products': filtered,
     }
@@ -91,10 +81,7 @@ def games(request):
 
 def consoles(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    print('consoles')
-    data = PRODUCTS.get_data()
-    filtered = list(filter(lambda results: results['category'] == 'Consoles', data))
-    print(filtered)
+    filtered = Products.objects.filter(category__exact=1).order_by(ORDER_BY)
     context = {
         'products': filtered,
     }
@@ -103,10 +90,7 @@ def consoles(request):
 
 def accessories(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    print('accessories')
-    data = PRODUCTS.get_data()
-    filtered = list(filter(lambda results: results['category'] == 'Accessories', data))
-    print(filtered)
+    filtered = Products.objects.filter(category__exact=3).order_by(ORDER_BY)
     context = {
         'products': filtered,
     }
@@ -115,10 +99,7 @@ def accessories(request):
 
 def used(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
-    print('used')
-    data = PRODUCTS.get_data()
-    filtered = list(filter(lambda results: results['condition'] == 'Used', data))
-    print(filtered)
+    filtered = Products.objects.filter(condition__exact=2).order_by(ORDER_BY)
     context = {
         'products': filtered,
     }
