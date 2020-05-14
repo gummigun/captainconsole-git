@@ -8,16 +8,18 @@
   padding: 0 21px;
 }
 
-.QuickFilter_title{
+.QuickFilter_title {
   font-size: 21px;
   margin: auto;
   padding-bottom: 25px;
   text-align: center;
   font-weight: 400;
 }
-.Filter_title{
+
+.Filter_title {
   font-weight: bold;
 }
+
 .Products {
   display: flex;
   flex-wrap: wrap;
@@ -36,8 +38,8 @@
 }
 
 .Cart__button:hover {
-  background-color: #ECA05A;
-  border-color: #ECA05A;
+  background-color: #CD7A2D;
+  border-color: #CD7A2D;
   color: white;
 }
 
@@ -61,4 +63,19 @@
 
 .Filter_byCategory {
   margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Orderby_Wrapper {
+  width: 100%;
+  margin: 10px 10px 10px 50px;
+}
+
+.Orderby_button {
+  border: none;
+  background-color: white;
+}
+
+.Orderby_button:hover {
+  text-decoration: underline;
 }
