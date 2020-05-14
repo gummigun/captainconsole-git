@@ -1,0 +1,38 @@
+.LandingPage__container {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 10px;
+}
+.Image__wrapper{
+position: relative;}
+
+
+.LandingPage__image {
+  width: 500px;
+}
+
+.TextButton__wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  right: 0;
+  left: 0;
+}
+
+.ShopNow__button {
+  background-color: #F1EFEF;
+  border: none;
+  width: 200px;
+  height: 40px;
+  font-size: 13px;
+  margin-right: 10px;
+  font-weight: 700;
+}
+
+.ShopNow__button:hover {
+  background-color:  #a6a5a5;
