@@ -2,7 +2,7 @@
     
 <a href="/products/{{ product.id }}" class="SingleProduct">
     <img class="SingleProduct__image"
-      src="{{ product.productimage_set.first.images }}" alt="">
+      src="{{ product.firstImage }}" alt="">
     <div class="SingleProduct__generalDesrciption">
       <div class="SingleProduct__namePriceWrapper">
         <span class="SingleProduct__name">{{ product.name }}</span>
