@@ -46,9 +46,18 @@
   color: #61646D;
 }
 
+.Product__DescriptionText {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 .Product__Price {
   font-weight: 600;
   color: #61646D;
+}
+
+.ProductDetails_carousel {
+  max-width: 400px;
 }
 
 .ProductDetails__carouselImg {

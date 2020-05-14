@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+<!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="MyAccount">
+
+
+
+
+  <h4 class="MyAccount__title">Hi, feel free to edit any of your details</h4>
+
+
+  <form class="MyAccount__form needs-validation" novalidate>
+
+    <div class="form-row">
+      <label for="validationTooltip01">Username</label>
+      <input type="text" class="form-control" id="validationTooltip01" placeholder="Username" value="" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email">
+
+    </div>
+
+
+    <div class=" MyAccount__fileInput form-row  custom-file">
+      <input type="file" class="custom-file-input" id="customFile">
+      <label class="custom-file-label" for="customFile">Choose Image</label>
+    </div>
+
+    <button class="Cart__button btn btn-primary" type="submit">Update</button>
+  </form>
+
+
+
+
+
+</div>
+{% endblock %}
