@@ -1,10 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3>This is a headline from product_details.html</h3>
-    <h4>Product: {{ product.name }}</h4>
-    <p>Category: {{ product.category }}</p>
-    <p>Price: ${{ product.price }}</p>
-    {% for product_image in product.productimagetest_set.all %}
-        <img src="{{ product_image.image }}" class="product-img" alt="" />
-    {% endfor %}
+{% load static %}
+<div class="ProductDetails_container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-interval="false" style="height: fit-content">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.pexels.com/photos/1298601/pexels-photo-1298601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    class="ProductDetails__carouselImg d-block" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.pexels.com/photos/2263816/pexels-photo-2263816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    class="ProductDetails__carouselImg d-block" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.pexels.com/photos/2263816/pexels-photo-2263816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    class="ProductDetails__carouselImg d-block" alt="...">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="ProductDetails">
+
+        <h4  class="Product__name"> {{ product.name }}</h4>
+        <div class="Product__Description">
+            <p> Category: {{ product.category }}</p>
+            <p><b>Price: ${{ product.price }}</b></p>
+
+            <p> Condition: {{ product.condition }}</p>
+            <p>Manufacturer: {{ product.manufacturer }}</p>
+            <p> Product description: {{ product.description }}</p>
+            <p>Rating:{{ product.rating }}</p>
+        </div>
+        <div class="Button__wrapper">
+            <button type="submit" class="Add_Tocart">Add to cart</button>
+            <button type="submit" class="Favorite"> <img src="{% static "images/favorite.svg" %}"
+                    alt="Favorite"></img></button>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
