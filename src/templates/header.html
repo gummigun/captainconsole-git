@@ -73,7 +73,7 @@
 
     <a href="#" class="Header__navbarItem" id="cart">
       <img class="Shopping_Cart" src="{% static "images/shopping_cart.svg" %}" alt="Shopping cart"></img>
-    Cart total
+    Cart total ({% if not request.session.cart_total %} 0 {% else %} {{ request.session.cart_total }}{% endif %})
     </a>
   </div>
 
