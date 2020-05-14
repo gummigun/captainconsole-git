@@ -10,40 +10,46 @@
         <h4 class="QuickFilter_title">QUICK FILTERS</h4>
         <h6 class="Filter_title">BY CONSOLE</h6>
         <div class="Filter_byConsole" id="byConsole">
-                <input type="checkbox" id="Gameboy" name="Gameboy" value="Gameboy">
+                <input type="radio" id="Gameboy" name="byConsole" value="Gameboy">
                 <label for="Gameboy">Gameboy</label><br>
-                <input type="checkbox" id="N64" name="N64" value="N64">
+                <input type="radio" id="N64" name="byConsole" value="N64">
                 <label for="N64">N64</label><br>
-                <input type="checkbox" id="Playstation" name="Playstation" value="Playstation">
+                <input type="radio" id="Playstation" name="byConsole" value="Playstation">
                 <label for="Playstation">Playstation</label><br>
-                <input type="checkbox" id="Wii" name="Wii" value="Wii">
+                <input type="radio" id="Wii" name="byConsole" value="Wii">
                 <label for="Wii">Wii</label><br>
-                <input type="checkbox" id="Xbox" name="Xbox" value="Xbox">
+                <input type="radio" id="Xbox" name="byConsole" value="Xbox">
                 <label for="Xbox">Xbox</label><br>
             
         </div>
         <h6 class="Filter_title">BY PRODUCT CATEGORY</h6>
         <div class="Filter_byCategory" id="byCategory">
-            <input type="checkbox" id="pc-consoles" name="Consoles" value="Consoles">
+            <input type="radio" id="pc-consoles" name="byCategory" value="1">
             <label for="pc-consoles">Consoles</label><br>
-            <input type="checkbox" id="pc-video-games" name="Video games" value="Video games">
+            <input type="radio" id="pc-video-games" name="byCategory" value="2">
             <label for="pc-video-games">Video games</label><br>
-            <input type="checkbox" id="pc-accessories" name="Accessories" value="Accessories">
+            <input type="radio" id="pc-accessories" name="byCategory" value="3">
             <label for="pc-accessories">Accessories</label><br>
         </div>
         <h6 class="Filter_title">BY CONDITION</h6>
         <div class="Filter_byCategory" id="byCondition">
-            <input type="checkbox" id="cond-new" name="New" value="New">
+            <input type="radio" id="cond-new" name="byCondition" value="New">
             <label for="cond-new">New</label><br>
-            <input type="checkbox" id="cond-used" name="Used" value="Used">
+            <input type="radio" id="cond-used" name="byCondition" value="Used">
             <label for="cond-used">Used</label><br>
         </div><!-- Our custom css can be found in src/static/css -->
     </div>
-    <div class="Products">
-        {% for product in products %}
-        <!-- Python logic to loop through products container in src/products/views.py -->
-        {% include 'products/single_product.html' with product=product %}
-        {% endfor %}
+
+    <div class="Orderby_Wrapper"> ORDER BY:
+        <button class="Orderby_button" id="ordername" value="name">NAME</button>
+        |
+        <button class="Orderby_button" id="orderprice" value="price">PRICE</button>
+        <div class="Products">
+            {% for product in products %}
+            <!-- Python logic to loop through products container in src/products/views.py -->
+            {% include 'products/single_product.html' with product=product %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
