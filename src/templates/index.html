@@ -1,55 +1,25 @@
 {% extends 'base.html' %}
 <!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% block content %}
+{% load static %}
 <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
-<div class="Filter_container">
-    <div class="Filters">
-        <div class="Button_wrapper"><button class="Cart__button">View cart</button>
-            <button class="Cart__button">Checkout</button>
+<div class="LandingPage__container">
+    <div class="Image__wrapper">
+        <div style="display:flex">
+        <img class="LandingPage__image"
+            src="https://images.pexels.com/photos/2263815/pexels-photo-2263815.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            alt="">
+        <img class="LandingPage__image"
+            src="https://images.pexels.com/photos/2263818/pexels-photo-2263818.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            alt="">
         </div>
-        <h4 class="QuickFilter_title">QUICK FILTERS</h4>
-        <h6 class="Filter_title">BY CONSOLE</h6>
-        <div class="Filter_byConsole" id="byConsole">
-                <input type="checkbox" id="Gameboy" name="Gameboy" value="Gameboy">
-                <label for="Gameboy">Gameboy</label><br>
-                <input type="checkbox" id="N64" name="N64" value="N64">
-                <label for="N64">N64</label><br>
-                <input type="checkbox" id="Playstation" name="Playstation" value="Playstation">
-                <label for="Playstation">Playstation</label><br>
-                <input type="checkbox" id="Wii" name="Wii" value="Wii">
-                <label for="Wii">Wii</label><br>
-                <input type="checkbox" id="Xbox" name="Xbox" value="Xbox">
-                <label for="Xbox">Xbox</label><br>
+        <div class="TextButton__wrapper">
+            <h2>You can still buy a game boy..</h2>
+            <button class="ShopNow__button">Shop now</button>
         </div>
-        <h6 class="Filter_title">BY PRODUCT CATEGORY</h6>
-        <div class="Filter_byCategory" id="byCategory">
-            <input type="checkbox" id="pc-consoles" name="Consoles" value="Consoles">
-            <label for="pc-consoles">Consoles</label><br>
-            <input type="checkbox" id="pc-video-games" name="Video games" value="Video games">
-            <label for="pc-video-games">Video games</label><br>
-            <input type="checkbox" id="pc-accessories" name="Accessories" value="Accessories">
-            <label for="pc-accessories">Accessories</label><br>
-        </div>
-        <h6 class="Filter_title">BY CONDITION</h6>
-        <div class="Filter_byCategory" id="byCondition">
-            <input type="checkbox" id="cond-new" name="New" value="New">
-            <label for="cond-new">New</label><br>
-            <input type="checkbox" id="cond-used" name="Used" value="Used">
-            <label for="cond-used">Used</label><br>
-        </div><!-- Our custom css can be found in src/static/css -->
-    </div>
-    <div class="Products">
-        <div class="Orderby_Wrapper"> ORDER BY:
-            <button class="Orderby_button">NAME</button>
-            |
-            <button class="Orderby_button">PRICE</button>
-        </div>
-        {% for product in products %}
-        <!-- Python logic to loop through products container in src/products/views.py -->
-        {% include 'products/single_product.html' with product=product %}
-        {% endfor %}
     </div>
 </div>
+
 {% endblock %}
 {% load static %}
 <script src="{% static 'js/search.js' %}"></script>
