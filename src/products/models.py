@@ -50,7 +50,7 @@ class ProductRating(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.rating
+        return str(self.rating)
 
 
 class ProductReview(models.Model):

@@ -20,6 +20,7 @@
                 <label for="Wii">Wii</label><br>
                 <input type="checkbox" id="Xbox" name="Xbox" value="Xbox">
                 <label for="Xbox">Xbox</label><br>
+            
         </div>
         <h6 class="Filter_title">BY PRODUCT CATEGORY</h6>
         <div class="Filter_byCategory" id="byCategory">
@@ -39,11 +40,6 @@
         </div><!-- Our custom css can be found in src/static/css -->
     </div>
     <div class="Products">
-        <div class="Orderby_Wrapper"> ORDER BY:
-            <button class="Orderby_button">NAME</button>
-            |
-            <button class="Orderby_button">PRICE</button>
-        </div>
         {% for product in products %}
         <!-- Python logic to loop through products container in src/products/views.py -->
         {% include 'products/single_product.html' with product=product %}
