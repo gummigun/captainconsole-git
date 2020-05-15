@@ -87,15 +87,28 @@ def update_cart(request, id):
     item = CartItem(cart=cart, products=product, quantity=qty, line_total=price)
     item.save()
 
-    # Get the current cart total
-    cart_total = {
-        'total': CartItem.objects.filter(cart_id=cart).aggregate(Sum('line_total'))['line_total__sum'],
-    }
+    items = [
+        {
+            'cart_id': x.cart.session,
+            'product_id': x.products.id,
+            'product_name': x.products.name,
+            'price': x.products.price,
+            'quantity': x.quantity,
+            'subtotal': x.products.price * x.quantity,
+        } for x in CartItem.objects.filter(cart_id=request.session['cart_id'])
+    ]
+
+    cart_total = 0
+    for item in items:
+        cart_total += item['subtotal']
+
     try:
         request.session['cart_total'] = float(
-            CartItem.objects.filter(cart_id=request.session['cart_id']).aggregate(Sum('line_total'))['line_total__sum'])
+            CartItem.objects.filter(cart_id=request.session['cart_id']).aggregate(total=Sum('line_total', field='line_total*quantity'))['total'])
     except TypeError:
         request.session['cart_total'] = 0.00
+
+    print(request.session['cart_total'])
     return JsonResponse(cart_total, status=201)
 
 
@@ -133,3 +146,43 @@ def remove_cart(request, id):
         print(context)
         return render(request, 'cart/cart.html', context)
 
+
+def checkout(request):
+    # Get the cart info
+    # See if user already has an open cart
+    item = CartItem.objects.filter(cart_id=request.session['cart_id'])
+    print(item)
+
+    items = [
+        {
+            'cart_id': x.cart.session,
+            'product_id': x.products.id,
+            'product_name': x.products.name,
+            'price': x.products.price,
+            'quantity': x.quantity,
+            'subtotal': x.products.price * x.quantity,
+        } for x in CartItem.objects.filter(cart_id=request.session['cart_id'])
+    ]
+    cart_total = 0
+    for item in items:
+        cart_total += item['subtotal']
+
+    context = {
+        'items': items,
+        'total': cart_total,
+    }
+    return render(request, 'cart/checkout.html', context)
+
+
+def process(request):
+    print('POST REQUEST', request.POST)
+    # Here we would add any logic to see if the payment is accepted
+
+    # Assumes the payment is accepted.
+    # Create a new shopping cart
+    fullname = request.POST['fullname']
+
+    context = {
+        'person': fullname,
+    }
+    return render(request, 'cart/thanks.html', context)
