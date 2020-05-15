@@ -163,6 +163,7 @@ $('#addCart').submit(function(e){
     e.preventDefault();
     let pid = parseInt(document.getElementById('pid').value);
     let qty = parseInt(document.getElementById('product-qty').value);
+    console.log(pid, qty)
     $.ajax({
         url: '../cart/add/' + pid,
         type: 'get',
@@ -174,7 +175,8 @@ $('#addCart').submit(function(e){
         success: function(response){
             console.log('Product added')
             // Update the cart total on success
-            total = response.total
+            console.log(response)
+            total = response.cart_total
             document.getElementById('cart-text').innerText = 'Cart total ($'+ total + ')';
 
         },
