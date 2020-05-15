@@ -87,7 +87,7 @@ body {
 }
 
 .Header__userWrapper {
-  margin-left: 10px;
+  margin: 0 10px;
 }
 
 .User__login {

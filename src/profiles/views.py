@@ -20,6 +20,13 @@ def take_login(request):
         get_object_or_404(Profiles, pk=id)
 
 
+def my_account(request):
+    if request.user.is_authenticated:
+        return render(request, 'profiles/my_account.html')
+    else:
+        return redirect("/profiles/login")
+
+
 def take_logout(request):
     logout(request)
     return render(request, '')

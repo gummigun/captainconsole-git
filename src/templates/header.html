@@ -14,23 +14,24 @@
     </div>
     {% if user.is_authenticated %}
         <div class="Header__userWrapper">
-            <ul class="nav nav-pills">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">USERNAME</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">LINK</a>
-                  <a class="dropdown-item" href="#">LINK</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
-              </li>
-            </ul>
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ user.get_username }}
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/profiles/my-account">My Account</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+          
+          </div>
+          
         </div>
     {% else %}
         {% if request.path != '/' or request.path != '/products/'  %}
             <div class="Header__userWrapper">
-                <a href="/login"><button class="User__login">login |</button></a>
-                <a href="profiles/register"> <button class="User__createAccount">create account</button></a>
+                <a href="/profiles/login"><button class="User__login">login </button></a> |
+                <a href="/profiles/register"> <button class="User__createAccount">create account</button></a>
             </div>
         {% else %}
             <div class="Header__userWrapper">
