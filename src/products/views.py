@@ -39,8 +39,8 @@ def index(request):
     if current_user is None:
         current_user = -1
     print(request.session.session_key)
-    if request.session.session_key is None or request.session.session_key == '':
-        request.session['session_key'] = 'xjudtzicy2uf2hqqpnrfsucvkptsp266'
+    if not request.session.exists(request.session.session_key):
+        request.session.create()
 
     try:
         cart = ShoppingCart.objects.get(session=request.session.session_key)
