@@ -158,16 +158,13 @@ $('#byCondition').on('click', function () {
     });
 });
 
-function get_cart_total() {
-
-}
 $('#addCart').submit(function(e){
     console.log('Add cart button pressed')
     e.preventDefault();
     let pid = parseInt(document.getElementById('pid').value);
     let qty = parseInt(document.getElementById('product-qty').value);
     $.ajax({
-        url: '../cart/' + pid,
+        url: '../cart/add/' + pid,
         type: 'get',
         data : {
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
@@ -188,26 +185,33 @@ $('#addCart').submit(function(e){
     });
 });
 
-// $('#addCart').submit(function(e){
-//     e.preventDefault();
-//     let pid = document.getElementById('pid').value;
-//     let qty = document.getElementById('product-qty').value;
-//     let user = document.getElementById('dropdownMenuLink').getAttribute('aria-valuetext').value;
-//     console.log(user)
-//     $.ajax({
-//         url: '../cart/add/?id=' + pid,
-//         type: 'post',
-//         data : {
-//             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-//             product: pid,
-//             quantity: qty,
-//         },
-//         success: function(){
-//             console.log('Product added')
-//         },
-//         error: function (xhr, status, error) {
-//             console.error(error);
-//             return {}
-//         }
-//     });
-// });
+$('#remove').on('click', function () {
+    console.log('Remove from cart button pressed')
+    let $this = $(this);
+    let product = $this.attr("aria-valuetext");
+    console.log(product)
+
+    let cart = $this.attr("aria-valuenow");
+    console.log(cart)
+
+    let url_path =  '../cart/remove/' + product;
+    console.log(url_path)
+    $.ajax({
+        url: url_path,
+        type: 'get',
+        data: {
+            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            product: product,
+            cart: cart,
+        },
+        success: function (response) {
+            console.log('Product removed')
+            // Remove the row
+            document.getElementById(cart).remove();
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            return {}
+        }
+    });
+});
