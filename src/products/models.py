@@ -59,3 +59,12 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return self.review
+
+
+class SearchHistory(models.Model):
+
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    count = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.product
