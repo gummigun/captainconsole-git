@@ -9,6 +9,7 @@ urlpatterns = [
     re_path(r'^consoles/$', views.consoles, name="consoles"),
     re_path(r'^accessories/$', views.accessories, name="accessories"),
     re_path(r'^used/$', views.used, name="used"),
+    path('history/', views.history, name="history"),
     path('<int:id>', views.get_product_by_id, name="product_details"),
     path('', include('django.contrib.auth.urls')),
 ]
