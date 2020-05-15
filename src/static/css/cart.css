@@ -2,6 +2,18 @@
   margin-top: 20px;
 }
 
+.Cart__noItemsTitle {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.Cart__noItemsImg {
+  height: 300px;
+  margin: auto;
+  display: flex;
+  margin-top: 24px;
+}
+
 
 .Cart__checkoutButton {
   margin-top: 20px;
@@ -10,4 +22,17 @@
   margin: auto;
   display: flex;
   justify-content: center;
+}
+
+.Cart__backCheckout {
+  background-color: rgb(206, 206, 206);
+  color: white;
+  margin-right: 10px;
+}
+.Cart__backCheckout:hover {
+  background-color: rgb(177, 177, 177);
+}
+
+.Review__alert {
+  margin-top: 15px;
 }

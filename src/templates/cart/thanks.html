@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
 <!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% block content %}
 <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
-<div class="LandingPage__container">
-    <div><h1>Thank you for shopping with Captain Console</h1></div>
-    <div><h3>{{ person }} you are awesome!</h3></div>
+<div class="SuccessPage">
+    <img class="SuccessPage__successImg" src="{% static "images/success_image.svg" %}" alt="success image">
+    <div>
+        <h2>Thank you for shopping with Captain Console!</h2>
+        <p>Now you can head back and shop for even more games !</p>
+        <a href="/products">
+            <button class="Cart__button SuccessPage__btn">Continue shopping</button>
+        </a>
+    </div>
 </div>
 
 {% endblock %}

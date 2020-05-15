@@ -1,0 +1,20 @@
+.SuccessPage {
+  margin-top: 14px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SuccessPage__successImg {
+  height: 360px;
+  margin-right: 40px;
+}
+
+.SuccessPage__btn {
+  max-width: 200px;
+  height: 40px;
+}

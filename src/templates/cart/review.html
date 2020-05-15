@@ -1,27 +1,50 @@
-{% extends 'base.html' %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% extends 'base.html' %}
+<!-- Required syntax to let django know to use the content below to extend base.html' -->
 {% block content %}
-    <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
-    <div class="captain">  <!-- Our custom css can be found in src/static/css -->
-        <h1 class="Cart__title">Please review the contents before proceeding.</h1>
-        <table class="table">
-        <thead>
-        {% csrf_token %}
+<!-- Write HTML for the block content here. Can also use python logic (see example below) -->
+<div class="captain">
+    <!-- Our custom css can be found in src/static/css -->
 
-        <th>Item</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>Subtotal</th>
+    <div class="Review__alert alert alert-primary" role="alert">
+        <h4 class="alert-heading">Attention!</h4>
+        Please review the contents before proceeding.
+    </div>
+    <table class="table">
+        <thead>
+            {% csrf_token %}
+
+            <th>Item</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
         </thead>
         <tfoot>
-        <tr><td></td><td>Total: {{ total }}</td></tr>
+            <tr>
+                <td></td>
+                <td>Total: {{ total }}</td>
+            </tr>
         </tfoot>
         {% for item in products %}
-            <tr id="{{ item.cart_id }}"><td id="{{ item.product_id }}">{{ item.product_name }}</td><td>{{ item.price }}</td><td>{{ item.quantity }}</td><td>{{ item.subtotal }}</td></tr>
+        <tr id="{{ item.cart_id }}">
+            <td id="{{ item.product_id }}">{{ item.product_name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.subtotal }}</td>
+        </tr>
         {% endfor %}
-        </table>
+    </table>
 
-        <form action="../checkout/"><button type="submit" class="Cart__button Cart__checkoutButton">I'm super happy! Let's checkout</button></form>
-        <a href="../">Let me change a few things... go back to cart.</a>
+    <div style='display: flex; justify-content: center;'>
 
+        <a href="../" style='text-decoration: none;'>
+            <button type="submit" class="Cart__button Cart__checkoutButton Cart__backCheckout">Go back to cart</button>
+        </a>
+        <form action="../checkout/">
+            <button type="submit" class="Cart__button Cart__checkoutButton">I'm super happy!
+                Let's
+                checkout</button>
+        </form>
     </div>
+
+</div>
 {% endblock %}
