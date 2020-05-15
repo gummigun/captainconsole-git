@@ -15,7 +15,7 @@
     {% if user.is_authenticated %}
         <div class="Header__userWrapper">
           <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-valuetext="{{ user }}">
               {{ user.get_username }}
             </a>
 
@@ -73,8 +73,8 @@
     <span class="Header__navbarBorder"></span>
 
     <a href="#" class="Header__navbarItem" id="cart">
-      <img class="Shopping_Cart" src="{% static "images/shopping_cart.svg" %}" alt="Shopping cart"></img>
-    Cart total ({% if not request.session.cart_total %} 0 {% else %} {{ request.session.cart_total }}{% endif %})
+        <img class="Shopping_Cart" src="{% static "images/shopping_cart.svg" %}" alt="Shopping cart"></img>
+        <span id="cart-text">Cart total ({{ request.session.cart_total }})</span>
     </a>
   </div>
 
