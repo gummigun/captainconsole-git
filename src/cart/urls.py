@@ -7,6 +7,7 @@ urlpatterns = [
     path('add/<int:id>', views.update_cart, name="update_cart"),
     path('remove/<int:id>', views.remove_cart, name="remove_cart"),
     path('checkout/', views.checkout, name="checkout"),
+    path('process/', views.process, name="process")
 
     #re_path(r'^add/[0-9]$', views.update_cart, name="update_cart"),
 

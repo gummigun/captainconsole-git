@@ -3,30 +3,31 @@
 {% block content %}
 <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
 
-<h3 class="Cart__title">Checkout(2) - 12345 $</h3>
-<form class="Checkout__form">
+<h3 class="Cart__title">Checking out! Your total is: ${{ total }}</h3>
+<form class="Checkout__form" id="checkout-form" name="checkout-form" action="/cart/process/" method="post">
+    {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputEmail4">Full name</label>
-            <input type="text" class="form-control" id="inputFullName">
+            <label for="inputFullName">Full name</label>
+            <input name="fullname" type="text" class="form-control" id="inputFullName" form="checkout-form">
         </div>
     </div>
     <div class="form-group">
-        <label for="inputAddress">Street Name</label>
-        <input type="text" class="form-control" id="inputStreetName" placeholder="1234 Main St">
+        <label for="inputStreetName">Street Name</label>
+        <input name="streetname"type="text" class="form-control" id="inputStreetName" placeholder="1234 Main St" form="checkout-form">
     </div>
     <div class="form-group">
-        <label for="inputAddress2">House Number</label>
-        <input type="text" class="form-control" id="inputHouseNumber" placeholder="Apartment, studio, or floor">
+        <label for="inputHouseNumber">House Number</label>
+        <input name="housenumber" type="text" class="form-control" id="inputHouseNumber" placeholder="Apartment, studio, or floor" form="checkout-form">
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
+            <input name="city" type="text" class="form-control" id="inputCity" form="checkout-form">
         </div>
         <div class="form-group col-md-4">
             <label for="inputCountry">Country</label>
-            <select id="inputCountry" class="form-control">
+            <select name="country" id="inputCountry" class="form-control" form="checkout-form">
                 <option selected>Choose...</option>
                 <option> Afghanistan</option>
                 <option> Albania</option>
@@ -226,7 +227,7 @@
         </div>
         <div class="form-group col-md-2">
             <label for="inputZip">Postal Code</label>
-            <input type="text" class="form-control" id="inputPostalCode">
+            <input name="zip" type="text" class="form-control" id="inputPostalCode" form="checkout-form">
         </div>
     </div>
 
@@ -234,19 +235,17 @@
 
     <h5 class="Cart__title">Card details</h5>
 
-
-
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Name of cardholder</label>
-            <input type="text" class="form-control" id="inputFullName">
+            <input name="cardholder" type="text" class="form-control" id="inputFullName" form="checkout-form">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Card Number</label>
-            <input type="text" class="form-control" id="inputFullName" maxlength="16" minlength="16">
+            <input name="cardnumber" type="text" class="form-control" id="inputFullName" maxlength="16" minlength="16" form="checkout-form">
         </div>
     </div>
 
@@ -254,16 +253,16 @@
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="inputCity">Expiration Date</label>
-            <input type="text" class="form-control" id="inputCity">
+            <input name="expires" type="text" class="form-control" id="inputCity" value="02/20" form="checkout-form">
         </div>
         <div class="form-group col-md-3">
             <label for="inputEmail4">CVC</label>
-            <input type="text" class="form-control" id="inputFullName">
+            <input name="cvc" type="text" class="form-control" id="inputFullName" value="111" form="checkout-form">
         </div>
     </div>
 
 
-    <button class="Cart__button Cart__checkoutButton">Next</button>
+    <button type="submit" form="checkout-form" class="Cart__button Cart__checkoutButton">Next</button>
 
 
 </form>

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+<!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% block content %}
+<!-- Write HTML for the block content here. Can also use python logic (see example below) -->
+<div class="LandingPage__container">
+    <div><h1>Thank you for shopping with Captain Console</h1></div>
+    <div><h3>{{ person }} you are awesome!</h3></div>
+</div>
+
+{% endblock %}
