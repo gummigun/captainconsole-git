@@ -108,6 +108,7 @@ def index(request):
 def products(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     print('products')
+
     print('Fetching search results.')
     if 'order' in request.GET:
         print('changing order')
@@ -117,9 +118,11 @@ def products(request):
         return order_query(request)
 
     elif 'search' in request.GET:
+        print('earch')
         query = request.GET['search']
-        PRODUCTS.FILTERED = Products.objects.filter(name__icontains=query).filter(console__icontains=query).filter(description__icontains=query).order_by(PRODUCTS.get_order_by())
-
+        print(query)
+        PRODUCTS.FILTERED = Products.objects.filter(name__icontains=query).order_by(PRODUCTS.get_order_by())
+        print(PRODUCTS.FILTERED)
         print('Fetching done.')
         context = {
             'products': PRODUCTS.FILTERED,

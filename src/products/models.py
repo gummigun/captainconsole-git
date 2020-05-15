@@ -62,7 +62,7 @@ class ProductReview(models.Model):
 
 
 class SearchHistory(models.Model):
-
+    user = models.DecimalField(max_digits=100, decimal_places=0, default=-1)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
 
