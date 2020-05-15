@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from products.models import Products, ProductImage, ProductCategories, ProductReview, ProductRating
+from products.models import Products, ProductImage, ProductCategories, ProductReview, ProductRating, SearchHistory
 from cart.models import ShoppingCart, CartItem
-from django.db.models import Sum
+from django.db.models import Sum, F
 
 class DataContainer():
     def __init__(self):
@@ -108,6 +108,7 @@ def index(request):
 def products(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     print('products')
+
     print('Fetching search results.')
     if 'order' in request.GET:
         print('changing order')
@@ -117,10 +118,24 @@ def products(request):
         return order_query(request)
 
     elif 'search' in request.GET:
+        print('earch')
         query = request.GET['search']
-        PRODUCTS.FILTERED = Products.objects.filter(name__icontains=query).filter(console__icontains=query).filter(description__icontains=query).order_by(PRODUCTS.get_order_by())
-
+        print(query)
+        PRODUCTS.FILTERED = Products.objects.filter(name__icontains=query).order_by(PRODUCTS.get_order_by())
+        print(PRODUCTS.FILTERED)
         print('Fetching done.')
+
+        user = request.user.id
+        if user is not None:
+            # See if the search word exists for the user. Increment count if so. Else create the searchword in history.
+            try:
+                word = SearchHistory.objects.get(searchword=query)
+                SearchHistory.objects.filter(user=user, searchword=query).update(count=F('count') + 1)
+            except SearchHistory.DoesNotExist:
+                searchword = SearchHistory(user=user, searchword=query.lower())
+                searchword.save()
+
+
         context = {
             'products': PRODUCTS.FILTERED,
             'cart': request.session['cart_total'],
@@ -187,6 +202,17 @@ def search_query(request):
     # Define filtering capabilities here.
     if 'query' in request.GET:
         search_filter = request.GET['query']  # Grabs what's being filtered/searched
+
+        user = request.user.id
+        if user is not None:
+            # See if the search word exists for the user. Increment count if so. Else create the searchword in history.
+            try:
+                word = SearchHistory.objects.get(searchword=search_filter.lower())
+                SearchHistory.objects.filter(user=user, searchword=search_filter).update(count=F('count') + 1)
+            except SearchHistory.DoesNotExist:
+                searchword = SearchHistory(user=user, searchword=search_filter.lower())
+                searchword.save()
+
         products = [
             {
                 'id': x.id,
@@ -258,6 +284,25 @@ def order_query(request):
         } for x in PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).filter(console__icontains=PRODUCTS.CONSOLES).filter(condition__lte=PRODUCTS.CONDITIONS).order_by(PRODUCTS.get_order_by())
     ]
     return JsonResponse({'data': products})
+
+
+def history(request):
+    # This function determines what is shown when the '/' or '/products/' indexes are requested.
+    user = request.user.id
+    if user is not None:
+        products = SearchHistory.objects.filter(user=user).order_by('-count')
+        print(products)
+        context = {
+            'products': products,
+        }
+        return render(request, 'products/history.html', context)
+    else:
+        errormsg = 'You have to be logged in to see search history.'
+        context = {
+            'error': errormsg,
+        }
+        return render(request, 'products/history.html', context)
+
 
 # /products/1
 def get_product_by_id(request, id):

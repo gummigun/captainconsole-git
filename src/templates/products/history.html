@@ -1,0 +1,25 @@
+{% extends 'base.html' %}  <!-- Required syntax to let django know to use the content below to extend base.html' -->
+{% load static %}
+{% block content %}
+    <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
+    <div class="captain">  <!-- Our custom css can be found in src/static/css -->
+        {% if empty %}
+            <h2 class="Cart__noItemsTitle"> {{ error.errormsg }}</h2>
+            <img class="Cart__noItemsImg" src="{% static "images/hiker_man.svg" %}" alt="hiker man">
+        {% else %}
+        <h1 class="Cart__title">Your search history!</h1>
+        <table class="table">
+        <thead>
+        {% csrf_token %}
+
+        <th>Search term</th>
+        <th>Count</th>
+        </thead>
+        {% for item in products %}
+            <tr><td>{{ item.searchword }}</td><td>{{ item.count }}</tr>
+        {% endfor %}
+        </table>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -59,3 +59,15 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return self.review
+
+
+class SearchHistory(models.Model):
+    user = models.DecimalField(max_digits=100, decimal_places=0, default=-1)
+    searchword = models.CharField(max_length=999)
+    count = models.IntegerField(default=1)
+
+    class Meta:
+        unique_together = (("user", "searchword"),)
+
+    def __str__(self):
+        return self.searchword
