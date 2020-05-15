@@ -2,10 +2,7 @@
 {% block content %}
     <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
     <div class="captain">  <!-- Our custom css can be found in src/static/css -->
-        {% if empty %}
-            <h1 style="text-align: center;"> Your cart is empty</h1>
-        {% else %}
-        <h1 class="Cart__title">Your cart!</h1>
+        <h1 class="Cart__title">Please review the contents before proceeding.</h1>
         <table class="table">
         <thead>
         {% csrf_token %}
@@ -14,18 +11,17 @@
         <th>Price</th>
         <th>Qty</th>
         <th>Subtotal</th>
-        <th>Action</th>
         </thead>
         <tfoot>
         <tr><td></td><td>Total: {{ total }}</td></tr>
         </tfoot>
         {% for item in products %}
-            <tr id="{{ item.cart_id }}"><td id="{{ item.product_id }}">{{ item.product_name }}</td><td>{{ item.price }}</td><td>{{ item.quantity }}</td><td>{{ item.subtotal }}</td><td><a href='#' id="remove" aria-valuenow="{{ item.cart_id }}" aria-valuetext={{ item.product_id }}>Remove</a></td></tr>
+            <tr id="{{ item.cart_id }}"><td id="{{ item.product_id }}">{{ item.product_name }}</td><td>{{ item.price }}</td><td>{{ item.quantity }}</td><td>{{ item.subtotal }}</td></tr>
         {% endfor %}
         </table>
 
-        <form action="./review/"><button type="submit" class="Cart__button Cart__checkoutButton">Checkout</button></form>
-        {% endif %}
+        <form action="../checkout/"><button type="submit" class="Cart__button Cart__checkoutButton">I'm super happy! Let's checkout</button></form>
+        <a href="../cart/">Let me change a few things... go back to cart.</a>
 
     </div>
 {% endblock %}
