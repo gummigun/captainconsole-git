@@ -8,16 +8,41 @@ from django.urls import reverse
 from products.models import Products
 # Create your views here.
 def index(request):
-    try:
-        the_id = request.session['cart_id']
-    except:
-        the_id = None
-    if the_id:
-        cart = ShoppingCart.objects.get(id=the_id)
-        context = {"cart": cart}
+
+
+    print(request.session['cart_id'])
+    # Get the cart id
+    shopping_cart = ShoppingCart.objects.filter(session=request.session['cart_id'])
+    print(shopping_cart)
+
+    # Get the associated cart items
+    i = CartItem.objects.filter(cart_id=request.session['cart_id']).values()
+    print(i)
+
+    items = [
+        {
+            'cart_id': x.cart.session,
+            'product_id': x.products.id,
+            'product_name': x.products.name,
+            'price': x.products.price,
+            'quantity': x.quantity,
+            'subtotal': x.products.price * x.quantity,
+        } for x in CartItem.objects.filter(cart_id=request.session['cart_id'])
+    ]
+
+    cart_total = 0
+    for item in items:
+        cart_total += item['subtotal']
+
+    if not i:
+        context = {'empty': True, "empty_message": 'empty_message'}
     else:
-        empty_message = "Your cart is empty."
-        context = {'empty': True, "empty_message": empty_message}
+        context = {
+            'total': "{:.2f}".format(cart_total),
+            'products': items,
+        }
+
+    print(context)
     return render(request, 'cart/cart.html', context)
 
 
@@ -74,30 +99,37 @@ def update_cart(request, id):
     return JsonResponse(cart_total, status=201)
 
 
-def add_cart(request):
+def remove_cart(request, id):
     # Check if 'add' is sent as a query parameter. Only add products if that is included.
-    print(request.POST)
-    if 'product' in request.POST:
-        # Grab the product id and quantity from the post request
-        pid = request.POST['product']
-        qty = request.POST['quantity']
+    print(request.GET)
 
-        # Get the current cart id
-        try:
-            cart = request.session['cart_id']
-        except Exception as err:
-            print(err)
+    cart_id = request.GET['cart']
+    print('removing', id, cart_id)
 
-        # Try to get the product
-        try:
+    item = CartItem.objects.filter(cart_id=cart_id, products_id=id).delete()
+    print(item)
 
-            product = Products.objects.get(id=pid)
-            print(product.name)
-            print(request.user.id)
-        except:
-            print('error')
+    if item[0] == 1:
+        items = [
+            {
+                'cart_id': x.cart.session,
+                'product_id': x.products.id,
+                'product_name': x.products.name,
+                'price': x.products.price,
+                'quantity': x.quantity,
+                'subtotal': x.products.price * x.quantity,
+            } for x in CartItem.objects.filter(cart_id=request.session['cart_id'])
+        ]
 
-        print(pid, qty)
+        cart_total = 0
+        for item in items:
+            cart_total += item['subtotal']
 
-    return HttpResponse(status=201)
+        context = {
+                'total': "{:.2f}".format(cart_total),
+                'products': items,
+            }
+
+        print(context)
+        return render(request, 'cart/cart.html', context)
 

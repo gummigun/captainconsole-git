@@ -2,22 +2,25 @@
 {% block content %}
     <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
     <div class="captain">  <!-- Our custom css can be found in src/static/css -->
-        <h1>This is the cart</h1>
-        <h2>Edit cart.html under templates/cart to change this content</h2>
+        <h1>Your cart!</h1>
         {% if empty %}
             <h1 style="text-align: center;">{{ empty_message }}</h1>
         {% else %}
         <table class="table">
         <thead>
+        {% csrf_token %}
+
         <th>Item</th>
         <th>Price</th>
         <th>Qty</th>
+        <th>Subtotal</th>
+        <th>Action</th>
         </thead>
         <tfoot>
-        <tr><td></td><td>Total: {{ cart.total }}</td></tr>
+        <tr><td></td><td>Total: {{ total }}</td></tr>
         </tfoot>
-        {% for item in cart.cartitem_set.all %}
-            <tr><td>{{ item.product }}</td><td>{{ item.product.price }}</td><td>{{ item.quantity }}</td><td><a href='{% url "update_cart" item.product.id %}?qty=0'>Remove</a></td></tr>
+        {% for item in products %}
+            <tr id="{{ item.cart_id }}"><td id="{{ item.product_id }}">{{ item.product_name }}</td><td>{{ item.price }}</td><td>{{ item.quantity }}</td><td>{{ item.subtotal }}</td><td><a href='#' id="remove" aria-valuenow="{{ item.cart_id }}" aria-valuetext={{ item.product_id }}>Remove</a></td></tr>
         {% endfor %}
         </table>
         {% endif %}
