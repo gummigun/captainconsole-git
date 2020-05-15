@@ -1,0 +1,13 @@
+.Cart__title {
+  margin-top: 20px;
+}
+
+
+.Cart__checkoutButton {
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}

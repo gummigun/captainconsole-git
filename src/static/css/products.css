@@ -35,6 +35,7 @@
   border: none;
   margin: 3px;
   width: 80%;
+  min-width: 180px;
 }
 
 .Cart__button:hover {

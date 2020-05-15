@@ -2,10 +2,10 @@
 {% block content %}
     <!-- Write HTML for the block content here. Can also use python logic (see example below) -->
     <div class="captain">  <!-- Our custom css can be found in src/static/css -->
-        <h1>Your cart!</h1>
         {% if empty %}
-            <h1 style="text-align: center;">{{ empty_message }}</h1>
+            <h1 style="text-align: center;"> Your cart is empty</h1>
         {% else %}
+        <h1 class="Cart__title">Your cart!</h1>
         <table class="table">
         <thead>
         {% csrf_token %}
@@ -23,6 +23,8 @@
             <tr id="{{ item.cart_id }}"><td id="{{ item.product_id }}">{{ item.product_name }}</td><td>{{ item.price }}</td><td>{{ item.quantity }}</td><td>{{ item.subtotal }}</td><td><a href='#' id="remove" aria-valuenow="{{ item.cart_id }}" aria-valuetext={{ item.product_id }}>Remove</a></td></tr>
         {% endfor %}
         </table>
+
+        <button class="Cart__button Cart__checkoutButton">Checkout</button>
         {% endif %}
     </div>
 {% endblock %}

@@ -1,0 +1,12 @@
+.Checkout__form{
+  margin-top: 20px;
+}
+
+.cart__beautyLine {
+  height: 1px;
+  display: block;
+  width: 100%;
+  background: #ebebeb;
+  margin-top: 14px;
+  margin-bottom: 20px;
+}

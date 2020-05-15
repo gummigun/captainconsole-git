@@ -64,15 +64,10 @@
     BUY USED
     </a>
 
-    <span class="Header__navbarBorder"></span>
-
-    <a href="{% url 'index' %}" class="Header__navbarItem" id="about">
-    ABOUT US
-    </a>
 
     <span class="Header__navbarBorder"></span>
 
-    <a href="#" class="Header__navbarItem" id="cart">
+    <a href="/cart" class="Header__navbarItem" id="cart">
         <img class="Shopping_Cart" src="{% static "images/shopping_cart.svg" %}" alt="Shopping cart"></img>
         <span id="cart-text">Cart total ({{ request.session.cart_total }})</span>
     </a>
