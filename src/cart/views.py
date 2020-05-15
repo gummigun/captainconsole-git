@@ -108,8 +108,12 @@ def update_cart(request, id):
     except TypeError:
         request.session['cart_total'] = 0.00
 
+    context = {
+        'cart_total': request.session['cart_total'],
+        'items': items,
+    }
     print(request.session['cart_total'])
-    return JsonResponse(cart_total, status=201)
+    return JsonResponse(context, status=201)
 
 
 def remove_cart(request, id):
