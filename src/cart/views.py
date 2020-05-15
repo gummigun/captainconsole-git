@@ -133,3 +133,7 @@ def remove_cart(request, id):
         print(context)
         return render(request, 'cart/cart.html', context)
 
+
+def checkout():
+    # Get the cart info
+    #
