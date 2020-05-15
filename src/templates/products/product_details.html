@@ -10,7 +10,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://images.pexels.com/photos/1298601/pexels-photo-1298601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                <img src="https://images.pexels.com/photos/2263816/pexels-photo-2263816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                     class="ProductDetails__carouselImg d-block" alt="...">
             </div>
             <div class="carousel-item">
@@ -44,8 +44,24 @@
             <p> Product description: {{ product.description }}</p>
             <p>Rating:{{ product.rating }}</p>
         </div>
+
         <div class="Button__wrapper">
-            <button type="submit" class="Add_Tocart">Add to cart</button>
+            <form action="/cart/add/" method="POST" name="addCart" id="addCart">
+                {% csrf_token %}
+                <div>
+                    <label for="product-qty">Quantity:</label>
+                    <select name="qty" id="product-qty" form="addCart">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <input type="hidden" id="pid" name="pid" value="{{ product.id }}">
+
+                    <button type="submit" class="Add_Tocart" form="addCart">Add to cart</button>
+                </div>
+                </form>
             <button type="submit" class="Favorite"> <img src="{% static "images/favorite.svg" %}"
                     alt="Favorite"></img></button>
         </div>

@@ -157,3 +157,57 @@ $('#byCondition').on('click', function () {
         }
     });
 });
+
+function get_cart_total() {
+
+}
+$('#addCart').submit(function(e){
+    console.log('Add cart button pressed')
+    e.preventDefault();
+    let pid = parseInt(document.getElementById('pid').value);
+    let qty = parseInt(document.getElementById('product-qty').value);
+    $.ajax({
+        url: '../cart/' + pid,
+        type: 'get',
+        data : {
+            csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            product: pid,
+            quantity: qty,
+        },
+        success: function(response){
+            console.log('Product added')
+            // Update the cart total on success
+            total = response.total
+            document.getElementById('cart-text').innerText = 'Cart total ($'+ total + ')';
+
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            return {}
+        }
+    });
+});
+
+// $('#addCart').submit(function(e){
+//     e.preventDefault();
+//     let pid = document.getElementById('pid').value;
+//     let qty = document.getElementById('product-qty').value;
+//     let user = document.getElementById('dropdownMenuLink').getAttribute('aria-valuetext').value;
+//     console.log(user)
+//     $.ajax({
+//         url: '../cart/add/?id=' + pid,
+//         type: 'post',
+//         data : {
+//             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+//             product: pid,
+//             quantity: qty,
+//         },
+//         success: function(){
+//             console.log('Product added')
+//         },
+//         error: function (xhr, status, error) {
+//             console.error(error);
+//             return {}
+//         }
+//     });
+// });

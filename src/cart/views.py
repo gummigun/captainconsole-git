@@ -1,5 +1,8 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse
 from cart.models import ShoppingCart, CartItem
+from django.db.models import Sum
+
 from django.urls import reverse
 
 from products.models import Products
@@ -17,51 +20,84 @@ def index(request):
         context = {'empty': True, "empty_message": empty_message}
     return render(request, 'cart/cart.html', context)
 
-def update_cart(request, product_id):
+
+def update_cart(request, id):
+    print('updating cart')
     request.session.set_expiry(120000)
+
+    # Grab the request parameters for product id and quantity and validate them
+    # Validate product id
     try:
-        qty =request.GET.get('qty')
+        product = Products.objects.get(id=id)
+        price = product.price
+    except Exception as err:
+        print(err)
+        HttpResponse(status=404)
+
+    # Product exists. Validate quantity
+    try:
+        qty = request.GET['quantity']
+        try:
+            qty = int(qty)
+        except ValueError:
+            HttpResponse(status=400)
+
         update_qty = True
-    except:
+    except Exception as err:
+        print(err)
         qty = ''
         update_qty = False
+
+    # Get the user ID
+    user_id = request.user.id
+    if user_id is None:
+        # User is not logged in.
+        # Add item to the shopping cart without a user associated.
+        user_id = -1
+
+    # See if user already has an open cart
+    cart = ShoppingCart.objects.get(session=request.session['cart_id'])
+
+    # Create the cart item
+    item = CartItem(cart=cart, products=product, quantity=qty, line_total=price)
+    item.save()
+
+    # Get the current cart total
+    cart_total = {
+        'total': CartItem.objects.filter(cart_id=cart).aggregate(Sum('line_total'))['line_total__sum'],
+    }
     try:
-        the_id = request.session['cart_id']
-    except:
-        new_cart = ShoppingCart()
-        new_cart.save()
-        request.session['cart_id'] = new_cart.id
-        the_id = new_cart.id
+        request.session['cart_total'] = float(
+            CartItem.objects.filter(cart_id=request.session['cart_id']).aggregate(Sum('line_total'))['line_total__sum'])
+    except TypeError:
+        request.session['cart_total'] = 0.00
+    return JsonResponse(cart_total, status=201)
 
-    cart = ShoppingCart.objects.get(id=the_id)
 
-    try:
-        product = Products.objects.get(id=product_id)
-    except Products.DoesNotExist:
-        pass
-    except:
-        pass
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if created:
-        print("Created cart item")
-    if update_qty and qty:
-        if int(qty) == 0:
-            cart_item.delete()
-        else:
-            cart_item.quantity = qty
-            cart_item.save()
-    else:
-        pass
-  #  if not cart_item in cart.items.all():
-  #      cart.products.add(cart_item)
-   # else:
-   #     cart.products.remove(cart_item)
+def add_cart(request):
+    # Check if 'add' is sent as a query parameter. Only add products if that is included.
+    print(request.POST)
+    if 'product' in request.POST:
+        # Grab the product id and quantity from the post request
+        pid = request.POST['product']
+        qty = request.POST['quantity']
 
-    new_total = 0.00
-    for item in cart.cartitem_set.all():
-        line_total = float(item.products.price) * item.quantity
-        new_total += line_total
-    request.session['cart_total'] = new_total
-    cart.total = new_total
-    cart.save()
-    return HttpResponseRedirect(reverse("cart"))
+        # Get the current cart id
+        try:
+            cart = request.session['cart_id']
+        except Exception as err:
+            print(err)
+
+        # Try to get the product
+        try:
+
+            product = Products.objects.get(id=pid)
+            print(product.name)
+            print(request.user.id)
+        except:
+            print('error')
+
+        print(pid, qty)
+
+    return HttpResponse(status=201)
+

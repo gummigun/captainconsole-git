@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-import json
 from products.models import Products, ProductImage, ProductCategories, ProductReview, ProductRating
-
+from cart.models import ShoppingCart, CartItem
+from django.db.models import Sum
 
 class DataContainer():
     def __init__(self):
@@ -34,6 +34,29 @@ def index(request):
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     print('index')
     print('Fetching initial products data.')
+
+    current_user = request.user.id
+    if current_user is None:
+        current_user = -1
+
+    try:
+        cart = ShoppingCart.objects.get(session=request.session.session_key)
+        request.session['cart_id'] = cart.session
+        try:
+            request.session['cart_total'] = float(CartItem.objects.filter(cart_id=request.session['cart_id']).aggregate(Sum('line_total'))['line_total__sum'])
+        except TypeError:
+            request.session['cart_total'] = 0.00
+    except Exception:
+        print('No active cart found. Creating a new cart.')
+        new_cart = ShoppingCart(session=request.session.session_key, user=current_user)
+        new_cart.save()
+        request.session['cart_id'] = new_cart.session
+        try:
+            request.session['cart_total'] = float(CartItem.objects.filter(cart_id=request.session['cart_id']).aggregate(Sum('line_total'))['line_total__sum'])
+        except TypeError:
+            request.session['cart_total'] = 0.00
+
+    print(request.session['cart_id'], request.session.session_key)
 
     # products = [
     #     {
@@ -74,6 +97,7 @@ def index(request):
     else:
         context = {
             'products': PRODUCTS.get_data(),
+            'cart': request.session['cart_total'],
         }
         return render(request, 'index.html', context)
 
@@ -96,6 +120,7 @@ def products(request):
         print('Fetching done.')
         context = {
             'products': PRODUCTS.FILTERED,
+            'cart': request.session['cart_total'],
         }
         return render(request, 'products/products.html', context)
     elif 'filter' in request.GET:
@@ -103,12 +128,14 @@ def products(request):
 
 
 def games(request):
+
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     PRODUCTS.CATEGORIES = 2
     PRODUCTS.FILTERED = PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).order_by(PRODUCTS.get_order_by())
     print(PRODUCTS.FILTERED)
     context = {
         'products': PRODUCTS.FILTERED,
+        'cart': request.session['cart_total'],
     }
     return render(request, 'products/products.html', context)
 
@@ -121,11 +148,14 @@ def consoles(request):
 
     context = {
         'products': PRODUCTS.FILTERED,
+        'cart': request.session['cart_total'],
     }
     return render(request, 'products/products.html', context)
 
 
 def accessories(request):
+    print(request.session['cart_id'], request.session.session_key)
+
     # This function determines what is shown when the '/' or '/products/' indexes are requested.
     PRODUCTS.CATEGORIES = 3
     PRODUCTS.FILTERED = PRODUCTS.get_data().filter(category__exact=PRODUCTS.CATEGORIES).order_by(PRODUCTS.get_order_by())
@@ -133,6 +163,7 @@ def accessories(request):
 
     context = {
         'products': PRODUCTS.FILTERED,
+        'cart': request.session['cart_total'],
     }
     return render(request, 'products/products.html', context)
 
@@ -142,6 +173,7 @@ def used(request):
     PRODUCTS.FILTERED = PRODUCTS.get_data().filter(condition__exact=2).order_by(PRODUCTS.get_order_by())
     context = {
         'products': PRODUCTS.FILTERED,
+        'cart': request.session['cart_total'],
     }
     return render(request, 'products/products.html', context)
 
@@ -227,5 +259,6 @@ def order_query(request):
 # /products/1
 def get_product_by_id(request, id):
     return render(request, 'products/product_details.html', {
-        'product': get_object_or_404(Products, pk=id)
+        'product': get_object_or_404(Products, pk=id),
+        'cart': request.session['cart_total'],
     })
