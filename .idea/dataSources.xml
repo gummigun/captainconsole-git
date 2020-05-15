@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://balarama.db.elephantsql.com:5432/qvshlchx</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db" uuid="68bf6ad2-03e3-4a24-b6ce-356099b8814d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Dev\VN2\captainconsole-git\src\db.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>
