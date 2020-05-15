@@ -216,7 +216,14 @@ def process(request):
     # Here we would add any logic to see if the payment is accepted
 
     # Assumes the payment is accepted.
-    # Create a new shopping cart
+    # Change the status of the current shopping cart to 2 (paid)
+    curr_cart_id = request.session['cart_id']
+    curr_cart = ShoppingCart.objects.filter(session=curr_cart_id)
+    curr_cart.update(status=2)
+
+    # Establish a new session for a new cart.
+    new_session = request.session.create()
+
     fullname = request.POST['fullname']
 
     context = {
