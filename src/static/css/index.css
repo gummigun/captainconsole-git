@@ -1,10 +1,4 @@
-.LandingPage__container {
-  margin-top: 10px;
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  padding: 10px;
-}
+
 .Image__wrapper{
 position: relative;}
 
