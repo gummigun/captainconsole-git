@@ -174,6 +174,43 @@ def checkout(request):
     return render(request, 'cart/checkout.html', context)
 
 
+def review(request):
+    print(request.session['cart_id'])
+    # Get the cart id
+    shopping_cart = ShoppingCart.objects.filter(session=request.session['cart_id'])
+    print(shopping_cart)
+
+    # Get the associated cart items
+    i = CartItem.objects.filter(cart_id=request.session['cart_id']).values()
+    print(i)
+
+    items = [
+        {
+            'cart_id': x.cart.session,
+            'product_id': x.products.id,
+            'product_name': x.products.name,
+            'price': x.products.price,
+            'quantity': x.quantity,
+            'subtotal': x.products.price * x.quantity,
+        } for x in CartItem.objects.filter(cart_id=request.session['cart_id'])
+    ]
+
+    cart_total = 0
+    for item in items:
+        cart_total += item['subtotal']
+
+    if not i:
+        context = {'empty': True, "empty_message": 'empty_message'}
+    else:
+        context = {
+            'total': "{:.2f}".format(cart_total),
+            'products': items,
+        }
+
+    print(context)
+    return render(request, 'cart/review.html', context)
+
+
 def process(request):
     print('POST REQUEST', request.POST)
     # Here we would add any logic to see if the payment is accepted
